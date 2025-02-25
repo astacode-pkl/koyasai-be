@@ -13,7 +13,7 @@
     <!-- Core Css -->
     <link rel="stylesheet" href="https://bootstrapdemos.adminmart.com/modernize/dist/assets/css/styles.css" />
     <link id="themeColors" rel="stylesheet" href="{{ asset('template/backend') }}/dist/css/styles.css" />
-
+    @stack('style')
     <title>Koyasai</title>
     <!-- Owl Carousel  -->
     <link rel="stylesheet"
@@ -1057,6 +1057,8 @@
     <script src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/libs/apexcharts/dist/apexcharts.min.js">
     </script>
     <script src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/js/dashboards/dashboard.js"></script>
+ @stack('script')
+
 </body>
 
 </html>

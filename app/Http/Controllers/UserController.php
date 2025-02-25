@@ -22,15 +22,12 @@ class UserController extends Controller
             'email' => 'required',
             'password' => 'required'
         ]);
+        
         if (Auth::attempt($user)) {
             $request->session()->regenerate();
-            activity()
-                ->event('login')
-                ->createdAt(now())
-                ->tap(function(Activity $activity){
+            activity()->event('login')->createdAt(now())->tap(function(Activity $activity){
                     $activity->causer_name = Auth::user()->name;
-                })
-                ->log('The user has logged in.');
+                })->log('The user has logged in.');
             return redirect()->intended('/');
         }
         return back()->with('error', 'Log in is failed');

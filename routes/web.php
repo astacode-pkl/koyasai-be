@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CompanyProfileController;
+use App\Http\Controllers\GalleryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
@@ -14,7 +15,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/', [HomeController::class, 'index']);
     Route::get('/company-profile', [CompanyProfileController::class, 'index'])->name('company profile');
     Route::put('/company-profile/{id}', [CompanyProfileController::class, 'update']);
-
     // Authentication
     Route::post('/logout', [UserController::class, 'logout']);
+    Route::resource('galleries', GalleryController::class)->except('show');
 });
