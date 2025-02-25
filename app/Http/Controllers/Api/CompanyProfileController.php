@@ -20,6 +20,10 @@ class CompanyProfileController extends Controller
                 'message' => 'Data not found'
             ]);
         } try {
+            $companyProfile = $companyProfile->map(function ($profile) {
+                $profile->logo = url('images/companyprofile/' . $profile->logo);
+                return $profile;
+            });
             return response()->json([
                 'status' => 200,
                 'companyprofile' => $companyProfile,
@@ -32,15 +36,7 @@ class CompanyProfileController extends Controller
             ]);
         }
 
-        $companyProfile = $companyProfile->map(function ($profile) {
-            $profile->logo = url('images/companyprofile/' . $profile->logo);
-            return $profile;
-        });
-
-        return response()->json([
-            'status' => 200,
-            'companyprofile' => $companyProfile,
-        ]);
+        
     }
 
     /**
