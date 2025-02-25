@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+// use App\Models\Profile;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\CompanyProfile;
 use Illuminate\Database\Seeder;
@@ -17,29 +18,22 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name' => 'Koyasai',
+            'email' => 'koyasai@mail.com',
+            'password' => bcrypt('123')
         ]);
         CompanyProfile::factory()->create([
-            'name' => 'lpk tsukuba indonesia',
-            'slogan' => '職業訓練機関つくばインドネシア',
-            'history' => 'LPK Tsukuba Indonesia didirikan pada bulan Agustus 2024 di Ciawi, Kabupaten Tasikmalaya, Jawa Barat Indonesia. LPK Tsukuba Indonesia adalah lembaga pendidikan bahasa Jepang untuk Program Pemagang ke Jepang, dan telah mendapatkan izin resmi dari pemerintah Indonesia.
-                        LPK Tsukuba Indonesia membuka kelas pendidikan Bahasa Jepang yang berorientasi memberikan pembekalan sikap, mental, serta bahasa dan budaya Jepang bagi calon peserta magang, dan melatih calon peserta magang agar menjadi pemagang yang andal dan sesuai dengan kompetensi yang dibutuhkan oleh perusahaan Jepang.',
-            'vision' => 'Menjadikan LPK Tsukuba Indonesia sebagai sarana generasi muda Indonesia untuk mengembangkan potensi dan menghasilkan lulusan yang berkualitas dan profesional serta mampu bersaing di kancah internasional. Khususnya di Negara Jepang.',
-            'mission' => '1. Melatih kedisiplinan dan etos kerja sesuai standar di Jepang.
-                        2. Mengoptimalkan potensi dari setiap peserta melalui Program Pemagangan Swasta, dan Program Pekerja Berketerampilan Khusus.
-                        3. Mendidik dan melatih bahasa Jepang dengan didampingi instruktur/pengajar alumni magang Jepang yang profesional dan berpengalaman.
-                        4. Mempersiapkan calon peserta dalam menghadapi seleksi/ujian yang dilaksanakan oleh penyelenggara rekrut magang.',
-            'email' => 'tsukubaindonesia@gmail.com',
-            'instagram' => 'https://www.instagram.com/lpk.tsukubaindonesia/',
-            'whatsapp' => 'https://wa.me/6282316396737',
-            'tiktok' => 'https://www.tiktok.com/@tsukuba.indonesia',
-            'address' => 'Perum Puri Ciawi Kencana, Pasirhuni, Kec. Ciawi, Kabupaten Tasikmalaya, Jawa Barat 46156',
-            'map' => 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3958.9013908491333!2d108.14592479999999!3d-7.137400899999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6f495efa140885%3A0xdf0a87b6588b1161!2sPerum%20Puri%20Ciawi%20Kencana!5e0!3m2!1sen!2sid!4v1736971326002!5m2!1sen!2sid',
-            'logo' => 'logo.webp',
-            'logo_type' => 'logo_type.webp',
-            'logo_mark' => 'logo_mark.webp',
-            'advertisement' => 'advertisement.webp',
+            'name' => 'Koyasai',
+            'address' => 'Jl. Parangtritis Raya No.3 Ancol Barat, Pademangan Jakarta Utara Jakarta 14430',
+            'history' => 'PT Indofresh’s journey began humbly in the early 2002 as a small trading company, focused on delivering fresh fruits across Indonesia. Over decades, our dedication to quality and customer satisfaction has propelled us to become a premier importer and distributor of fresh fruits in the region. Our success is built on a foundation of efficient logistics, stringent quality control, and a steadfast commitment to excellence.
+                        PT Indofresh boasts over 20 years of experience and expertise in the fruit distribution industry. Our reputation as a household name is a testament to our unwavering dedication in providing the finest fruits from the best farmers and suppliers and exceeding the highest standards and expectations. With a diverse selection of over 40 varieties of fruits, we take pride in delivering freshness and quality to our customers nationwide.',
+            'simple_history' => '',
+            'instagram' => 'https://www.instagram.com/indofresh.fruit/',
+            'facebook' => 'https://www.facebook.com/PTIndofresh/',
+            'youtube' => 'https://youtu.be/ageOlag_ZBk',
+            'whatsapp' => 'https://wa.me/6281298985155',
+            'phone' => '02164798888',
+            'map' => '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7934.070583840624!2d106.81721493768498!3d-6.1259532078282595!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6a1e06dd56f04d%3A0x88079a2932f12d1e!2sPT%20Indofresh!5e0!3m2!1sid!2sid!4v1740110836922!5m2!1sid!2sid" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
 
         ]);
     }
