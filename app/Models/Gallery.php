@@ -17,6 +17,7 @@ class Gallery extends Model
         return LogOptions::defaults()->setDescriptionForEvent(fn(string $eventName) => "Gallery {$eventName}");;
         
     }
-
-
+    public function images() {
+        return fn() => $url = asset('images/gallery/'.$this->image) ;
+    }
 }
