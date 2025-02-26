@@ -18,19 +18,13 @@ class UserController extends Controller
     }
     public function login(Request $request)
     {
-        $user = $request->validate([
-            'email' => 'required',
-            'password' => 'required'
-        ]);
-        if (Auth::attempt($user)) {
+    
+        
+        if (Auth::attempt($request->only('email', 'password'))) {
             $request->session()->regenerate();
-            activity()
-                ->event('login')
-                ->createdAt(now())
-                ->tap(function(Activity $activity){
+            activity()->event('login')->createdAt(now())->tap(function(Activity $activity){
                     $activity->causer_name = Auth::user()->name;
-                })
-                ->log('The user has logged in.');
+                })->log('The user has logged in.');
             return redirect()->intended('/');
         }
         return back()->with('error', 'Log in is failed');
