@@ -9,7 +9,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 class CompanyProfile extends Model
 {
-    use HasFactory,LogsActivity;
+    use HasFactory, LogsActivity;
 
     protected $table = 'companyprofile';
     protected $guarded = ['id'];
@@ -17,6 +17,6 @@ class CompanyProfile extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->logUnguarded();
+            ->logUnguarded()->setDescriptionForEvent(fn(string $eventName) => auth()->user()->name . " {$eventName} Company Profile");
     }
 }
