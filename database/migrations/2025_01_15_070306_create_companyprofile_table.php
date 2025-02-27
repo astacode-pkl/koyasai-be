@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('companyprofile', function (Blueprint $table) {
             $table->id();
-            $table->text('logo');
             $table->string('name');
             $table->string('email');
             $table->text('address');
@@ -25,6 +24,8 @@ return new class extends Migration
             $table->text('whatsapp');
             $table->string('phone');
             $table->text('map');
+            $table->string('logo_type');
+            $table->string('logo_mark');
             $table->timestamps();
         });
     }

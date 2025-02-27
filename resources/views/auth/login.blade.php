@@ -14,7 +14,7 @@
     <meta name="keywords" content="Mordenize" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <!--  Favicon -->
-    <link rel="shortcut icon" type="image/png" href="{{ asset('template/backend') }}/dist/images/logos/favicon.ico" />
+        <link rel="shortcut icon" type="image/png" href="{{ asset('images/companyprofile/'.$companyProfile->logo_mark) }}" />
     <!-- Core Css -->
     <link id="themeColors" rel="stylesheet" href="{{ asset('template/backend') }}/dist/css/style.min.css" />
 </head>
@@ -22,7 +22,7 @@
 <body>
     <!-- Preloader -->
     <div class="preloader">
-        <img src="{{ asset('template/backend') }}/dist/images/logos/favicon.ico" alt="loader"
+       <img src="{{ asset('images/companyprofile/'.$companyProfile->logo_mark) }}" alt="loader"
             class="lds-ripple img-fluid" />
     </div>
     <!--  Body Wrapper -->
@@ -32,9 +32,11 @@
             <div class="position-relative z-index-5">
                 <div class="row">
                     <div class="col-xl-7 col-xxl-8">
-                        <a href="./index.html" class="text-nowrap logo-img d-block px-4 py-9 w-100">
-                            <img src="{{ asset('template/backend') }}/dist/images/logos/dark-logo.svg" width="180"
-                                alt="">
+                        <a href="/" class="text-nowrap logo-img d-block px-4 py-9 w-100">
+                            <img src="{{ asset('images/companyprofile/'.$companyProfile->logo_mark) }}" width="90"
+                                alt="logo mark">
+                            <img src="{{ asset('images/companyprofile/'.$companyProfile->logo_type) }}" width="90"
+                                alt="logo type">
                         </a>
                         <div class="d-none d-xl-flex align-items-center justify-content-center"
                             style="height: calc(100vh - 80px);">
@@ -45,7 +47,7 @@
                     <div class="col-xl-5 col-xxl-4">
                          <div class="authentication-login min-vh-100 bg-body row justify-content-center align-items-center p-4">
                             <div class="col-sm-8 col-md-6 col-xl-9 position-relative">
-                                {{-- <x-alert></x-alert> --}}
+                                <x-alert></x-alert>
                                 <h2 class="mb-3 fs-7 fw-bolder">Log in</h2>
                                 <p class=" mb-9">Please enter your email and password to login</p>
                                 <form action="/login" method="post">

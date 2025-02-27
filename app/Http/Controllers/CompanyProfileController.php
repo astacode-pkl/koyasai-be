@@ -68,14 +68,14 @@ class CompanyProfileController extends Controller
         $id = Crypt::decryptString($id);
         $table = CompanyProfile::find($id);
         $table->name = $request->name;
-        $table->slogan = $request->slogan;
-        $table->history = $request->history;
-        $table->vision = $request->vision;
-        $table->mission = $request->mission;
+        $table->phone = $request->phone;
         $table->email = $request->email;
+        $table->youtube = $request->youtube;
+        $table->facebook = $request->facebook;
         $table->instagram = $request->instagram;
         $table->whatsapp = $request->whatsapp;
-        $table->tiktok = $request->tiktok;
+        $table->history = $request->history;
+        $table->simple_history = $request->simple_history;
         $table->address = $request->address;
 
         function get_string_between($string, $start, $end)
@@ -93,13 +93,7 @@ class CompanyProfileController extends Controller
             $table->map = $request->map;
         }
         $logoType = $table->logo_type;
-        $logo = $table->logo;
         $logoMark = $table->logo_mark;
-        $advertisement = $table->advertisement;
-        if ($request->file('logo') !== null) {
-            # code...
-            $logo = $this->updateImage('images/companyprofile/',$table->logo,$request->file('logo'));
-        }
         if ($request->file('logo_type') !== null){
 
             $logoType = $this->updateImage('images/companyprofile/',$table->logo_type,$request->file('logo_type'));
@@ -108,16 +102,8 @@ class CompanyProfileController extends Controller
             # code...
             $logoMark = $this->updateImage('images/companyprofile/',$table->logo_mark,$request->file('logo_mark'));
         }
-        if ($request->file('advertisement') !== null) {
-            # code...
-            $advertisement = $this->updateImage('images/companyprofile/',$table->advertisement,$request->file('advertisement'));
-        }
         
-        // $oldData = CompanyProfile::where('id',$id)->get();
-        $table->update(['logo' => $logo,'logo_type' => $logoType,'logo_mark' => $logoMark,'advertisement' => $advertisement]);
-        // $newData = CompanyProfile::where('id',$id)->get();
-        // Cache::put('companyprofile', $newData);
-        // LogHistory::record('Update',  auth()->user()->name.' updated Company Profile',$newData,$oldData);
+        $table->update(['logo_type' => $logoType,'logo_mark' => $logoMark]);
 
         return redirect()->back()->with('success', 'Profile updated successfully!');
     }

@@ -23,7 +23,7 @@ class heroController extends Controller
                 'status' => 200,
                 'hero' => $hero
             ]);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return response()->json([
                 'status' => 500,
                 'message' => 'Server Error',

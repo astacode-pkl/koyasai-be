@@ -8,13 +8,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Favicon icon-->
-    <link rel="shortcut icon" type="image/png" href="{{ asset('template/backend') }}/dist/images/logos/favicon.ico" />
+    <link rel="shortcut icon" type="image/png" href="{{ asset('images/companyprofile/'.$companyProfile->logo_mark) }}" />
 
     <!-- Core Css -->
     <link rel="stylesheet" href="https://bootstrapdemos.adminmart.com/modernize/dist/assets/css/styles.css" />
     <link id="themeColors" rel="stylesheet" href="{{ asset('template/backend') }}/dist/css/styles.css" />
-
-    <title>Koyasai</title>
+    @stack('style')
+    <title>{{ $companyProfile->name }}</title>
     <!-- Owl Carousel  -->
     <link rel="stylesheet"
         href="{{ asset('template/backend') }}/dist/libs/owl.carousel/dist/assets/owl.carousel.min.css">
@@ -35,7 +35,7 @@
     </div>
     <!-- Preloader -->
     <div class="preloader">
-        <img src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/logos/favicon.png" alt="loader"
+        <img src="{{ asset('images/companyprofile/'.$companyProfile->logo_mark) }}" alt="loader"
             class="lds-ripple img-fluid" />
     </div>
     <div id="main-wrapper">
@@ -45,11 +45,9 @@
                 <!-- Start Vertical Layout Sidebar -->
                 <!-- ---------------------------------- -->
                 <div class="brand-logo d-flex align-items-center justify-content-between">
-                    <a href="../main/index.html" class="text-nowrap logo-img">
-                        <img src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/logos/dark-logo.svg"
-                            class="dark-logo" alt="Logo-Dark" />
-                        <img src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/logos/light-logo.svg"
-                            class="light-logo" alt="Logo-light" />
+                    <a href="/" class="text-nowrap logo-img">
+                        <img src="{{ asset('images/companyprofile/'.$companyProfile->logo_mark) }}" width="10%" alt="Logo Mark" />
+                        <img src="{{ asset('images/companyprofile/'.$companyProfile->logo_type) }}" width="10%" alt="Logo Type" />
                     </a>
                     <a href="javascript:void(0)"
                         class="sidebartoggler ms-auto text-decoration-none fs-5 d-block d-xl-none">
@@ -87,70 +85,72 @@
                             <span class="hide-menu">Data</span>
                         </li>
                         <!-- ---------------------------------- -->
-                        <!-- Categories -->
-                        <!-- ---------------------------------- -->
-                        <li class="sidebar-item">
-                            <a class="sidebar-link @if (request()->is('categories')) active @endif" href="/categories"
-                                aria-expanded="false">
-                                <span>
-                                    <i class="ti ti-list-details"></i>
-                                </span>
-                                <span class="hide-menu">Categories</span>
-                            </a>
-                        </li>
-                        <!-- ---------------------------------- -->
                         <!-- Gallery -->
-                        <!-- ---------------------------------- -->
+                        <!-- -------    --------------------------- -->
                         <li class="sidebar-item">
-                            <a class="sidebar-link @if (request()->is('galleries')) active @endif" href="/galleries"
+                            <a class="sidebar-link @if (request()->is('galleries','galleries/*')) active @endif" href="/galleries"
                                 aria-expanded="false">
                                 <span>
                                     <i class="ti ti-photo"></i>
                                 </span>
-                                <span class="hide-menu">Galleries</span>
+                                <span class="hide-menu">Gallery</span>
                             </a>
-
-                            <!-- ---------------------------------- -->
-                            <!-- Programs -->
-                            <!-- ---------------------------------- -->
+                        </li>
+                        <!-- ---------------------------------- -->
+                        <!-- News -->
+                        <!-- ---------------------------------- -->
                         <li class="sidebar-item">
                             <a class="sidebar-link 
-                        @if (request()->is(['programs', 'programs/create'])) active @endif"
-                                href="/programs" aria-expanded="false">
+                        @if (request()->is(['news', 'news/*'])) active @endif"
+                                href="/news" aria-expanded="false">
                                 <span>
-                                    <i class="ti ti-layout"></i>
+                                    <i class="ti ti-news"></i>
                                 </span>
-                                <span class="hide-menu">Programs</span>
+                                <span class="hide-menu">News</span>
                             </a>
                         </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link has-arrow  " href="#" aria-expanded="false">
+                              <span class="d-flex">
+                                <i class="ti ti-basket"></i>
+                              </span>
+                              <span class="hide-menu">Catalogs</span>
+                            </a>
+                            <ul aria-expanded="false" class="collapse first-level">
+                              <li class="sidebar-item">
+                                <a href="/categories" class="sidebar-link">
+                                  <div class="round-16 d-flex align-items-center justify-content-center">
+                                    <i class="ti ti-circle"></i>
+                                  </div>
+                                  <span class="hide-menu">Categories</span>
+                                </a>
+                              </li>
+                              <li class="sidebar-item">
+                                <a href="/catalogs" class="sidebar-link">
+                                  <div class="round-16 d-flex align-items-center justify-content-center">
+                                    <i class="ti ti-circle"></i>
+                                  </div>
+                                  <span class="hide-menu">Catalogs</span>
+                                </a>
+                              </li>
+                            </ul>
+                          </li>
+                        
                         <!-- ---------------------------------- -->
-                        <!-- Regulations -->
+                        <!-- Clients -->
                         <!-- ---------------------------------- -->
                         <li class="sidebar-item">
-                            <a class="sidebar-link @if (request()->is('regulations')) active @endif" href="/regulations"
+                            <a class="sidebar-link @if (request()->is('clients')) active @endif" href="/clients"
                                 aria-expanded="false">
                                 <span>
-                                    <i class="ti ti-book"></i>
+                                    <i class="ti ti-users"></i>
                                 </span>
-                                <span class="hide-menu">Regulations</span>
+                                <span class="hide-menu">Clients</span>
                             </a>
                         </li>
 
                         <!-- ---------------------------------- -->
-                        <!-- Benefits -->
-                        <!-- ---------------------------------- -->
-                        <li class="sidebar-item">
-                            <a class="sidebar-link @if (request()->is('benefits')) active @endif" href="/benefits"
-                                aria-expanded="false">
-                                <span class="d-flex">
-                                    <i class="ti ti-chart-pie"></i>
-                                </span>
-                                <span class="hide-menu">Benefits</span>
-                            </a>
-                        </li>
-
-                        <!-- ---------------------------------- -->
-                        <!-- heroes -->
+                        <!-- Heroes -->
                         <!-- ---------------------------------- -->
                         <li class="sidebar-item">
                             <a class="sidebar-link @if (request()->is('heroes')) active @endif" href="/heroes"
@@ -159,6 +159,31 @@
                                     <i class="ti ti-slideshow"></i>
                                 </span>
                                 <span class="hide-menu">Heroes</span>
+                            </a>
+                        </li>
+
+                        <!-- ---------------------------------- -->
+                        <!-- Services -->
+                        <!-- ---------------------------------- -->
+                        <li class="sidebar-item">
+                            <a class="sidebar-link @if (request()->is('services')) active @endif" href="/services"
+                                aria-expanded="false">
+                                <span class="d-flex">
+                                    <i class="ti ti-ad-2"></i>
+                                </span>
+                                <span class="hide-menu">Services</span>
+                            </a>
+                        </li>
+                        <!-- ---------------------------------- -->
+                        <!-- Embeds -->
+                        <!-- ---------------------------------- -->
+                        <li class="sidebar-item">
+                            <a class="sidebar-link @if (request()->is('embeds')) active @endif" href="/embeds"
+                                aria-expanded="false">
+                                <span class="d-flex">
+                                    <i class="ti ti-link"></i>
+                                </span>
+                                <span class="hide-menu">Embeds</span>
                             </a>
                         </li>
                         <!-- ---------------------------------- -->
@@ -181,8 +206,8 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link @if (request()->is('loghistories')) active @endif"
-                                href="/loghistories" aria-expanded="false">
+                            <a class="sidebar-link @if (request()->is('log-histories')) active @endif"
+                                href="/log-histories" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-history"></i>
                                 </span>
@@ -1049,7 +1074,8 @@
     <script src="{{ asset('template/backend') }}/dist/js/theme/theme.js"></script>
     <script src="{{ asset('template/backend') }}/dist/js/theme/app.min.js"></script>
     <script src="{{ asset('template/backend') }}/dist/js/theme/sidebarmenu.js"></script>
-
+    <script src="{{ asset('template/backend') }}/dist/js/dashboard.js"></script>    
+    <script src="{{ asset('template/backend') }}/dist/js/sidebarmenu.js"></script>
     <!-- solar icons -->
     <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
     <script src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/libs/owl.carousel/dist/owl.carousel.min.js">
@@ -1057,6 +1083,8 @@
     <script src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/libs/apexcharts/dist/apexcharts.min.js">
     </script>
     <script src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/js/dashboards/dashboard.js"></script>
+ @stack('script')
+
 </body>
 
 </html>
