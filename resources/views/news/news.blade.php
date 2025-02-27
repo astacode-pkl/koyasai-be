@@ -5,15 +5,16 @@
 
     <section class="datatables">
         <!-- ---------------
-                        start DataTable
-                        ---------------- -->
+                            start DataTable
+                            ---------------- -->
         <div class="card">
             <div class="card-body">
 
                 <div class="mb-2">
                     <div class="d-flex justify-content-between align-content-center">
-                        <h5 class="mb-0">Galleries</h5>
-                        <a href="/galleries/create"><button class="btn btn-primary"> <i class="ti ti-plus "></i> Create</button> </a>
+                        <h5 class="mb-0">News</h5>
+                        <a href="/news/create"><button class="btn btn-primary"> <i class="ti ti-plus "></i> Create</button>
+                        </a>
                     </div>
                     <div class="table-responsive m-t-40">
                         <table id="config-table" class="table border display table-bordered  no-wrap">
@@ -23,30 +24,31 @@
                                     <th>No</th>
                                     <th>Image</th>
                                     <th>Title</th>
+                                    <th>Description</th>
                                     <th>Action</th>
                                 </tr>
                                 <!-- end row -->
                             </thead>
                             <tbody>
-                                @foreach ($galleries as $gallery)
+                                @foreach ($news as $item)
                                     <tr>
-                                        <td>{{ $gallery->title }}</td>
-                                        <td><img src="{{ asset('/images/galleries/' . $gallery->image) }}"
-                                                alt="image-galleries" width="80"></td>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td><a href="/galleries/{{ $gallery->id }}/edit"
+                                        <td><img src="{{ asset('/images/news/' . $item->image) }}"
+                                                alt="image-news" width="80"></td>
+                                        <td>{{ $item->title }}</td>
+                                        <td>{{ $item->description }}</td>
+                                        <td><a href="/news/{{ $item->id }}/edit"
                                                 class="btn btn-warning  px-4 waves-effect waves-light">
                                                 <i class="ti ti-edit "></i> Edit
-                                                </a>
+                                            </a>
+                                            </button>
+                                            <form action="/news/{{ $item->id }}" method="POST" class="d-inline">
+                                                @method('delete')
+                                                @csrf
+                                                <button type="submit" class="btn btn-danger px-4 waves-effect waves-light">
+                                                    <i class="ti ti-trash "></i> Delete
                                                 </button>
-                                                <form action="/galleries/{{ $gallery->id }}" method="POST" class="d-inline">
-                                                    @method('delete')
-                                                    @csrf
-                                                    <button type="submit"
-                                                        class="btn btn-danger px-4 waves-effect waves-light">
-                                                        <i class="ti ti-trash "></i> Delete
-                                                    </button>
-                                                </form>
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -56,8 +58,8 @@
                 </div>
             </div>
             <!-- ----------------
-                        end DataTable
-                         ---------------- -->
+                            end DataTable
+                             ---------------- -->
     </section>
     @push('script')
         <!-- datatable -->

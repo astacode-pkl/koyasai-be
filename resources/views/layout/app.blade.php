@@ -41,7 +41,8 @@
     <div id="main-wrapper">
         <!-- Sidebar Start -->
         <aside class="left-sidebar with-vertical">
-            <div><!-- ---------------------------------- -->
+            <div>
+            <!-- ---------------------------------- -->
                 <!-- Start Vertical Layout Sidebar -->
                 <!-- ---------------------------------- -->
                 <div class="brand-logo d-flex align-items-center justify-content-between">
@@ -103,7 +104,7 @@
                         <!-- ---------------------------------- -->
                         <li class="sidebar-item">
                             <a class="sidebar-link 
-                        @if (request()->is(['news', 'news/*'])) active @endif"
+                        @if (request()->is('news', 'news/*')) active @endif"
                                 href="/news" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-news"></i>
@@ -207,6 +208,14 @@
                                 <span class="hide-menu">Company Profile</span>
                             </a>
                         </li>
+                        <li class="sidebar-item">
+                                <a class="sidebar-link @if (request()->is('account-settings')) active @endif" href="/account-settings">
+                                    <span>
+                                        <i class="ti ti-user-circle"></i>
+                                    </span>
+                                    <span class="hide-menu">Account Settings</span>
+                                </a>
+                            </li>
                         <li class="sidebar-item">
                             <a class="sidebar-link @if (request()->is('loghistories')) active @endif"
                                 href="/loghistories" aria-expanded="false">
@@ -431,8 +440,16 @@
                                                         </p>
                                                     </div>
                                                 </div>
-
-                                                <form action="/logout" method="post">
+                                            <a href="/account-settings" class="py-8 px-7 mt-8 d-flex align-items-center">
+                                                <span class="d-flex align-items-center justify-content-center bg-light rounded-1 p-6">
+                                                <img src="{{asset('template/backend')}}/dist/images/svgs/icon-account.svg" alt="" width="24" height="24">
+                                                </span>
+                                                <div class="w-75 d-inline-block v-middle ps-3">
+                                                <h6 class="mb-1 bg-hover-primary fw-semibold"> Account </h6>
+                                                <span class="d-block text-dark">Account Settings</span>
+                                                </div>
+                                            </a>
+                                            <form action="/logout" method="post">
                                                     <div class="d-grid py-4 px-7 pt-8">
                                                         @csrf
                                                         <button type="submit" class="btn btn-primary">Log
@@ -755,6 +772,14 @@
                                         <i class="ti ti-id-badge"></i>
                                     </span>
                                     <span class="hide-menu">Company Profile</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link" href="/account-setting">
+                                    <span>
+                                        <i class="ti ti-user-circle"></i>
+                                    </span>
+                                    <span class="hide-menu">Account Setting</span>
                                 </a>
                             </li>
                             <li class="sidebar-item">
