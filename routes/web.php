@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HeroController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GalleryController;
@@ -17,6 +18,21 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/company-profile', [CompanyProfileController::class, 'index'])->name('company profile');
     Route::put('/company-profile/{id}', [CompanyProfileController::class, 'update']);
     Route::resource('/log-histories', LogHistoryController::class)->except('show');
+    // Route::resource('/heroes', HeroController::class)->except('show')->name('store','store.heroes');
+    Route::controller(HeroController::class)->group(function () {
+        Route::post('/heroes/update-position', 'updatePosition')->name('update.heroes');
+        Route::get('/heroes', 'index');
+        Route::get('/heroes/edit/{id}', 'edit');
+        Route::get('/heroes/create', 'create');
+        Route::post('/heroes', 'store')->name('store.heroes');
+        Route::get('/heroes/delete/{id}', 'destroy')->name('destroyHero');
+        Route::put('/heroes/update/{id}', 'update')->name('update.heroes');
+    });
+
+
+
+
+
     // Authentication
     Route::post('/logout', [UserController::class, 'logout']);
     Route::resource('galleries', GalleryController::class)->except('show');
