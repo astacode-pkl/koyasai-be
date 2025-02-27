@@ -7,18 +7,21 @@
                 @csrf
                 <div class="card-body border-top">
                     <div class="row justify-content-between">
-                        <div class="col-6">
+                        <div class="col-11">
 
                             <div class="mb-3">
-                                <label for="image"
-                                    class="control-label col-form-label @error('image') is-invalid @enderror">Image</label>
-                                <input type="file" class="form-control" id="image" name="image"
-                                    value="{{ old('image') }}" Required />
-                                @error('image')
-                                    <div class="invalid-feedback">
-                                        <span class="text-danger">{{ $message }}</span>
-                                    </div>
-                                @enderror
+                                <label for="icon"
+                                    class="control-label col-form-label @error('icon') is-invalid @enderror">icon</label>
+                                <div class=" d-flex gap-3">
+                                    <textarea type="file" class="form-control" id="icon" name="icon" value="{{ old('icon') }}"
+                                        placeholder="please enter icon you can find on website heroicons.com"></textarea>
+                                    @error('icon')
+                                        <div class="invalid-feedback">
+                                            <span class="text-danger">{{ $message }}</span>
+                                        </div>
+                                    @enderror
+                                    <div class="flex justify-content-center align-content-center">jds</div>
+                                </div>
                             </div>
                             <div class="mb-3">
                                 <label for="title" class="control-label col-form-label">Title</label>
@@ -41,17 +44,13 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-6 d-flex align-items-center justify-content-center border-dashed border-dark-subtle"
-                            id="priview">
-                            <div class="">Image preview here</div>
-                        </div>
                     </div>
                 </div>
                 <div class="p-3 border-top">
                     <div class="action-form">
                         <div class="text-end">
                             <button type="submit" class="btn btn-info px-4 waves-effect waves-light">
-                               <i class="ti ti-device-floppy"></i> Save
+                                <i class="ti ti-device-floppy"></i> Save
                             </button>
                             <a href="/news" class="btn btn-dark px-4 waves-effect waves-light">
                                 <i class="ti ti-xbox-x"></i> Cancel

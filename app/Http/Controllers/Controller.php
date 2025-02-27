@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\ConvertToWebpJob;
+
+
 abstract class Controller
 {
     public function uploadImage($destination,$image){
@@ -14,34 +17,11 @@ abstract class Controller
         if (strpos($imageMimeType, 'image/') === 0) {
             $imageName = date('YmdHis') . '' . str_replace(' ', '', $sha1FileName);
             $image->move($destinationPath, $imageName);
+            dispatch(new ConvertToWebpJob($destinationPath, $imageName, $imageMimeType));
 
-            $sourceImagePath = public_path($destinationPath . $imageName);
-            $webpImagePath = $destinationPath . pathinfo($imageName, PATHINFO_FILENAME) . '.webp';
-
-            $sourceImage = null;
-            switch ($imageMimeType) {
-                case 'image/jpeg':
-                    $sourceImage = @imagecreatefromjpeg($sourceImagePath);
-                    break;
-                case 'image/png':
-                    $sourceImage = @imagecreatefrompng($sourceImagePath);
-                    break;
-                case 'image/jpg':
-                    $sourceImage = @imagecreatefromjpg($sourceImagePath);
-                    break;
-                default:
-                    $sourceImage = false;
-                    break;
-            }
-
-            if ($sourceImage !== false) {
-                imagewebp($sourceImage, $webpImagePath);
-                imagedestroy($sourceImage);
-                @unlink($sourceImagePath);
-
-                return pathinfo($imageName, PATHINFO_FILENAME) . '.webp';
-            }
+            return pathinfo($imageName, PATHINFO_FILENAME) . '.webp';
         }
+
         return '';
 
     }
@@ -80,32 +60,11 @@ abstract class Controller
                 $imageName = date('YmdHis') . '' . str_replace(' ', '', $sha1FileName);
                 $image->move($destinationPath, $imageName);
 
-                $sourceImagePath = public_path($destinationPath . $imageName);
-                $webpImagePath = $destinationPath . pathinfo($imageName, PATHINFO_FILENAME) . '.webp';
-                $sourceImage = null;
-                switch ($imageMimeType) {
-                    case 'image/jpeg':
-                        $sourceImage = @imagecreatefromjpeg($sourceImagePath);
-                        break;
-                    case 'image/png':
-                        $sourceImage = @imagecreatefrompng($sourceImagePath);
-                        break;
-                    case 'image/jpg':                    
-                        $sourceImage = @imagecreatefromjpg($sourceImagePath);
+                    dispatch(new ConvertToWebpJob($destinationPath, $imageName, $imageMimeType));
 
-                        break;
-                    default:
-                        $sourceImage = false;
-                        break;
-                }
-
-                if ($sourceImage !== false) {
-                    imagewebp($sourceImage, $webpImagePath);
-                    imagedestroy($sourceImage);
-                    @unlink($sourceImagePath);
 
                     return  pathinfo($imageName, PATHINFO_FILENAME) . '.webp';
-                }
+                
             }
     }
 }
