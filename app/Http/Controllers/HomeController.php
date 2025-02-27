@@ -8,7 +8,7 @@ use Spatie\Activitylog\Models\Activity;
 class HomeController extends Controller
 {
     public function index(){
-        dd(Activity::all());
+        // dd(Activity::all());
         return view('home');
     }
 }

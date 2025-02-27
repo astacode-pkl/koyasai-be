@@ -19,6 +19,10 @@ class GalleryController extends Controller
                 'message' => 'Data not found'
             ]);
         } try {
+            $gallery = $gallery->map(function ($image) {
+                $image->logo = url('images/gallery/' . $image->logo);
+                return $image;
+            });
             return response()->json([
                 'status' => 200,
                 'gallery' => $gallery

@@ -14,7 +14,24 @@ class ContactController extends Controller
      */
     public function index()
     {
-        //
+        $contact = Contact::all();
+        if ($contact->isEmpty()) {
+            return response()->json([
+                'status' => 404,
+                'message' => 'Data not found'
+            ]);
+        } try {
+            return response()->json([
+                'status' => 200,
+                'contact' => $contact,
+            ]);    
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 500,
+                'message' => 'Server Error',
+                'details' => $e->getMessage()
+            ]);
+        }
     }
 
     /**
