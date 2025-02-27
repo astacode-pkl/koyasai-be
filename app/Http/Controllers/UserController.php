@@ -2,12 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use App\Models\LogHistory;
 use Illuminate\Http\Request;
-use App\Models\CompanyProfile;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cache;
 use Spatie\Activitylog\Contracts\Activity;
 
 class UserController extends Controller
@@ -24,7 +20,7 @@ class UserController extends Controller
             $request->session()->regenerate();
             activity()->event('login')->createdAt(now())->tap(function(Activity $activity){
                     $activity->causer_name = Auth::user()->name;
-                })->log('The user has logged in.');
+                })->log(auth()->user()->name.' has logged in.');
             return redirect()->intended('/');
         }
         return back()->with('error', 'Log in is failed');
@@ -37,7 +33,7 @@ class UserController extends Controller
             ->tap(function (Activity $activity) {
                 $activity->causer_name = Auth::user()->name;
             })
-            ->log('The user has logged out.');
+            ->log(auth()->user()->name.' has logged out.');
         Auth::logout();
         request()->session()->invalidate();
         request()->session()->regenerateToken();

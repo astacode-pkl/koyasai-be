@@ -13,29 +13,34 @@
             @method('put')
             <div class="card-body">
                 <div class="row pt-3">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="mb-3">
                             <label class="control-label" for="name">Name</label>
                             <input type="text" id="name" name="name" class="form-control"
                                 value="{{ $companyProfile->name }}">
                         </div>
                     </div>
-                    <!--/span-->
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="mb-3">
-                            <label class="control-label" for="slogan">Slogan</label>
-                            <input type="text" id="slogan" name="slogan" class="form-control"
-                                value="{{ $companyProfile->slogan }}">
+                            <label class="control-label" for="phone">Phone</label>
+                            <input type="text" id="phone" name="phone" class="form-control"
+                                value="{{ $companyProfile->phone }}">
                         </div>
                     </div>
-                    <!--/span-->
-                </div>
-                <div class="row pt-3">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="mb-3">
                             <label class="control-label" for="email">Email</label>
                             <input type="email" id="email" name="email" class="form-control"
                                 value="{{ $companyProfile->email }}">
+                        </div>
+                    </div>
+                </div>
+                <div class="row pt-3">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="control-label" for="youtube">YouTube</label>
+                            <input type="text" id="youtube" name="youtube" class="form-control"
+                                value="{{ $companyProfile->youtube }}">
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -57,9 +62,9 @@
                     <!--/span-->
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label class="control-label" for="tiktok">TikTok Link</label>
-                            <input type="text" id="tiktok" name="tiktok" class="form-control"
-                                value="{{ $companyProfile->tiktok }}">
+                            <label class="control-label" for="facebook">Facebook Link</label>
+                            <input type="text" id="facebook" name="facebook" class="form-control"
+                                value="{{ $companyProfile->facebook }}">
                         </div>
                     </div>
                     <!--/span-->
@@ -67,14 +72,14 @@
                 <div class="row pt-3">
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label class="control-label">Vision</label>
-                            <textarea class="form-control" id="floatingTextarea" name="vision">{{ $companyProfile->vision }}</textarea>
+                            <label class="control-label" for="history">History</label>
+                            <textarea class="form-control" name="history" id="floatingTextarea">{{ $companyProfile->history }}</textarea>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label class="control-label">Mission</label>
-                            <textarea class="form-control" name="mission" id="floatingTextarea">{{ $companyProfile->mission }}</textarea>
+                            <label class="control-label">Brief History</label>
+                            <textarea class="form-control" name="simple_history" id="floatingTextarea">{{ $companyProfile->simple_history }}</textarea>
                         </div>
                     </div>
                 </div>
@@ -92,38 +97,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="row pt-3">
-                    <div class="col">
-                        <div class="mb-3">
-                            <label class="control-label" for="history">History</label>
-                            <textarea class="form-control" name="history" id="floatingTextarea">{{ $companyProfile->history }}</textarea>
-                        </div>
-                    </div>
-                </div>
                 <div class="d-flex pt-3 gap-3">
-
-                    <div class="mb-3">
-                        <label class="control-label" for="address">Logo</label>
-
-                        <img src="{{ asset('images/companyprofile/' . $companyProfile->logo) }}"
-                            class="img-fluid rounded-top w-xs-100 d-block my-3" alt="" id="preview"
-                            style="max-width:230px;" />
-                        <div class="input-group">
-                            <div class="custom-file">
-                                <input type="file" id="fileInput"
-                                    class="form-control @error('logo') is-invalid @enderror " name="logo"
-                                    id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-                                @error('logo')
-                                    <div id="validationServer04Feedback" class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
                     <div class="mb-3">
                         <label class="control-label" for="address">Logo Mark (Graphical logo)</label>
-
                         <img src="{{ asset('images/companyprofile/' . $companyProfile->logo_mark) }}"
                             class="img-fluid rounded-top  w-xs-100 d-block my-3" alt="" id="preview"
                             style="max-width:230px;" />
@@ -142,7 +118,6 @@
                     </div>
                     <div class="mb-3">
                         <label class="control-label" for="address">Logo Type (Text logo)</label>
-
                         <img src="{{ asset('images/companyprofile/' . $companyProfile->logo_type) }}"
                             class="img-fluid rounded-top w-xs-100 d-block my-3" alt="" id="preview"
                             style="max-width:230px;" />
@@ -159,29 +134,7 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
-                <div class="mb-3">
-                    <label class="control-label" for="address">Advertisement</label>
-
-                    <img src="{{ asset('images/companyprofile/' . $companyProfile->advertisement) }}"
-                        class="img-fluid rounded-top w-xs-100 d-block my-3" alt="" id="preview"
-                        style="max-width:230px;" />
-                    <div class="input-group">
-                        <div class="custom-file">
-                            <input type="file" id="fileInput"
-                                class="form-control @error('advertisement') is-invalid @enderror " name="advertisement"
-                                id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-                            @error('advertisement')
-                                <div id="validationServer04Feedback" class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                    </div>
-                </div>
-
-
                 <div class="form-actions text-end">
                     <div class="card-body border-top">
                         <button type="submit" class="btn btn-primary px-4" onclick="Decision(event)">

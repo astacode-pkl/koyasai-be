@@ -8,13 +8,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Favicon icon-->
-    <link rel="shortcut icon" type="image/png" href="{{ asset('template/backend') }}/dist/images/logos/favicon.ico" />
+    <link rel="shortcut icon" type="image/png" href="{{ asset('images/companyprofile/'.$companyProfile->logo_mark) }}" />
 
     <!-- Core Css -->
     <link rel="stylesheet" href="https://bootstrapdemos.adminmart.com/modernize/dist/assets/css/styles.css" />
     <link id="themeColors" rel="stylesheet" href="{{ asset('template/backend') }}/dist/css/styles.css" />
     @stack('style')
-    <title>Koyasai</title>
+    <title>{{ $companyProfile->name }}</title>
     <!-- Owl Carousel  -->
     <link rel="stylesheet"
         href="{{ asset('template/backend') }}/dist/libs/owl.carousel/dist/assets/owl.carousel.min.css">
@@ -37,7 +37,7 @@
     <!-- end welcome message -->
     <!-- Preloader -->
     <div class="preloader">
-        <img src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/logos/favicon.png" alt="loader"
+        <img src="{{ asset('images/companyprofile/'.$companyProfile->logo_mark) }}" alt="loader"
             class="lds-ripple img-fluid" />
     </div>
     <div id="main-wrapper">
@@ -47,11 +47,9 @@
                 <!-- Start Vertical Layout Sidebar -->
                 <!-- ---------------------------------- -->
                 <div class="brand-logo d-flex align-items-center justify-content-between">
-                    <a href="../main/index.html" class="text-nowrap logo-img">
-                        <img src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/logos/dark-logo.svg"
-                            class="dark-logo" alt="Logo-Dark" />
-                        <img src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/logos/light-logo.svg"
-                            class="light-logo" alt="Logo-light" />
+                    <a href="/" class="text-nowrap logo-img">
+                        <img src="{{ asset('images/companyprofile/'.$companyProfile->logo_mark) }}" width="10%" alt="Logo Mark" />
+                        <img src="{{ asset('images/companyprofile/'.$companyProfile->logo_type) }}" width="10%" alt="Logo Type" />
                     </a>
                     <a href="javascript:void(0)"
                         class="sidebartoggler ms-auto text-decoration-none fs-5 d-block d-xl-none">
@@ -210,8 +208,8 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link @if (request()->is('loghistories')) active @endif"
-                                href="/loghistories" aria-expanded="false">
+                            <a class="sidebar-link @if (request()->is('log-histories')) active @endif"
+                                href="/log-histories" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-history"></i>
                                 </span>
