@@ -62,15 +62,15 @@ class NewsController extends Controller
      */
     public function update(Request $request, News $news)
     {
-        
         $validated = $request->validate([
             'title' => 'required',
             'description' => 'required',
             'image' => 'image|mimes:jpeg,png,jpg|max:2048'
         ]);
+        
         $table = News::find($news->id);
         $image = $this->updateImage('images/news/',$table->image,$request->file('image'));
-        $table->update(['image' => $image]);
+        $table->update(['title' => $validated['title'],'image' => $image,'description' => $validated['description']]);
         return redirect('/news')->with('success','News updated successfully!!');
     }
 

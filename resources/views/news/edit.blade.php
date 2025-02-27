@@ -52,10 +52,10 @@
                     <div class="action-form">
                         <div class="text-end">
                             <button type="submit" class="btn btn-info px-4 waves-effect waves-light">
-                                Edit
+                                <i class="ti ti-device-floppy"></i> Edit
                             </button>
                             <a href="/news" class="btn btn-dark px-4 waves-effect waves-light">
-                                Cancel
+                                <i class="ti ti-xbox-x"></i> Cancel
                             </a>
                         </div>
                     </div>

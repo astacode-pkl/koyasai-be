@@ -30,10 +30,10 @@
                             <tbody>
                                 @foreach ($galleries as $gallery)
                                     <tr>
-                                        <td>{{ $gallery->title }}</td>
+                                        <td>{{ $loop->iteration }}</td>
                                         <td><img src="{{ asset('/images/galleries/' . $gallery->image) }}"
                                                 alt="image-galleries" width="80"></td>
-                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $gallery->title }}</td>
                                         <td><a href="/galleries/{{ $gallery->id }}/edit"
                                                 class="btn btn-warning  px-4 waves-effect waves-light">
                                                 <i class="ti ti-edit "></i> Edit
