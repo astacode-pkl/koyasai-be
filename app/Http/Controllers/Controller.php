@@ -17,6 +17,7 @@ abstract class Controller
         if (strpos($imageMimeType, 'image/') === 0) {
             $imageName = date('YmdHis') . '' . str_replace(' ', '', $sha1FileName);
             $image->move($destinationPath, $imageName);
+            
             dispatch(new ConvertToWebpJob($destinationPath, $imageName, $imageMimeType));
 
             return pathinfo($imageName, PATHINFO_FILENAME) . '.webp';

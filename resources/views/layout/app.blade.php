@@ -121,7 +121,7 @@
                             </a>
                             <ul aria-expanded="false" class="collapse first-level">
                               <li class="sidebar-item">
-                                <a href="/categories" class="sidebar-link">
+                                <a href="/categories" class="sidebar-link @if (request()->is('categories', 'categories/*')) active @endif">
                                   <div class="round-16 d-flex align-items-center justify-content-center">
                                     <i class="ti ti-circle"></i>
                                   </div>
@@ -129,7 +129,7 @@
                                 </a>
                               </li>
                               <li class="sidebar-item">
-                                <a href="/catalogs" class="sidebar-link">
+                                <a href="/catalogs" class="sidebar-link @if (request()->is('catalogs', 'catalogs/*')) active @endif">
                                   <div class="round-16 d-flex align-items-center justify-content-center">
                                     <i class="ti ti-circle"></i>
                                   </div>
@@ -143,7 +143,7 @@
                         <!-- Clients -->
                         <!-- ---------------------------------- -->
                         <li class="sidebar-item">
-                            <a class="sidebar-link @if (request()->is('clients')) active @endif" href="/clients"
+                            <a class="sidebar-link @if (request()->is('clients','clients/*')) active @endif" href="/clients"
                                 aria-expanded="false">
                                 <span>
                                     <i class="ti ti-users"></i>
@@ -156,7 +156,7 @@
                         <!-- Heroes -->
                         <!-- ---------------------------------- -->
                         <li class="sidebar-item">
-                            <a class="sidebar-link @if (request()->is('heroes')) active @endif" href="/heroes"
+                            <a class="sidebar-link @if (request()->is('heroes','heroes/*')) active @endif" href="/heroes"
                                 aria-expanded="false">
                                 <span class="d-flex">
                                     <i class="ti ti-slideshow"></i>
@@ -169,7 +169,7 @@
                         <!-- Services -->
                         <!-- ---------------------------------- -->
                         <li class="sidebar-item">
-                            <a class="sidebar-link @if (request()->is('services')) active @endif" href="/services"
+                            <a class="sidebar-link @if (request()->is('services','services/*')) active @endif" href="/services"
                                 aria-expanded="false">
                                 <span class="d-flex">
                                     <i class="ti ti-ad-2"></i>
@@ -181,7 +181,7 @@
                         <!-- Embeds -->
                         <!-- ---------------------------------- -->
                         <li class="sidebar-item">
-                            <a class="sidebar-link @if (request()->is('embeds')) active @endif" href="/embeds"
+                            <a class="sidebar-link @if (request()->is('embeds','embeds/*')) active @endif" href="/embeds"
                                 aria-expanded="false">
                                 <span class="d-flex">
                                     <i class="ti ti-link"></i>

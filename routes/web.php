@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\EmbedController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UserController;
 
@@ -24,6 +25,7 @@ Route::middleware(['auth'])->group(function () {
         Route::patch('/account-settings/update', 'updateAccount')->name('account.update');
     });
     Route::resource('/services', ServiceController::class)->except('show');
+    Route::resource('/embeds', EmbedController::class)->except('show');
     // Authentication
     Route::post('/logout', [UserController::class, 'logout']);
     Route::resource('/galleries', GalleryController::class)->except('show');
