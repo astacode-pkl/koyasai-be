@@ -9,6 +9,9 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\EmbedController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\SearchController;
+
+
 
 Route::middleware(['guest'])->group(function () {
     Route::post('/login', [UserController::class, 'login']);
