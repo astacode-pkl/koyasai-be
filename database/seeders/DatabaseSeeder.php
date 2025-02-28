@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 // use App\Models\Profile;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Category;
 use App\Models\CompanyProfile;
 use Illuminate\Database\Seeder;
 
@@ -23,5 +24,6 @@ class DatabaseSeeder extends Seeder
             'password' => '12345678'
         ]);
         CompanyProfile::factory()->create();
+        // Category::factory(10000)->create();
     }
 }
