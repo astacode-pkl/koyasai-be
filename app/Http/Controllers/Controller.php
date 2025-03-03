@@ -73,7 +73,7 @@ abstract class Controller
             
             //sh1 file name
             $sha1FileName = sha1($image->getClientOriginalName());
-
+            
             $imageMimeType = $image->getMimeType();
 
             if (strpos($imageMimeType, 'image/') === 0) {

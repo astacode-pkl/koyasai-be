@@ -29,7 +29,23 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'icon' => ['required',function ($attribute, $value, $fail) {
+                libxml_use_internal_errors(true); // Hindari error PHP jika XML tidak valid
+                $xml = simplexml_load_string($value);
+                if ($xml === false || $xml->getName() !== 'svg') {
+                    $fail('The ' . $attribute . ' must be a valid SVG XML.');
+                }
+            }]
+        ]);
+        $table = new Service;
+        $table->title = $request->title;
+        $table->icon = $request->icon;
+        $table->description = $request->description;
+        $table->save();
+        return redirect('/services')->with('success','Service updated successfully!!');
     }
 
     /**
@@ -45,7 +61,8 @@ class ServiceController extends Controller
      */
     public function edit(Service $service)
     {
-        //
+        $service =  Service::find($service->id);
+        return view('services.edit',compact('service'));
     }
 
     /**
@@ -53,7 +70,23 @@ class ServiceController extends Controller
      */
     public function update(Request $request, Service $service)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'icon' => ['required',function ($attribute, $value, $fail) {
+                libxml_use_internal_errors(true); // Hindari error PHP jika XML tidak valid
+                $xml = simplexml_load_string($value);
+                if ($xml === false || $xml->getName() !== 'svg') {
+                    $fail('The ' . $attribute . ' must be a valid SVG XML.');
+                }
+            }]
+        ]);
+        $table = Service::find($service->id);
+        $table->title = $request->title;
+        $table->icon = $request->icon;
+        $table->description = $request->description;
+        $table->update();
+        return redirect('/services')->with('success','Service updated successfully!!');
     }
 
     /**
@@ -61,6 +94,9 @@ class ServiceController extends Controller
      */
     public function destroy(Service $service)
     {
-        //
+        $table = Service::find($service->id);
+        $table->delete();
+        return redirect('/services')->with('success','Service deleted successfully!!');
+
     }
 }

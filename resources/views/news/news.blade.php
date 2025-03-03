@@ -17,7 +17,7 @@
                         </a>
                     </div>
                     <div class="table-responsive m-t-40">
-                        <table id="config-table" class="table border display table-bordered  no-wrap">
+                        <table id="config-table" class="table border display table-bordered  no-wrap d-block overflow-x-auto">
                             <thead>
                                 <!-- start row -->
                                 <tr>

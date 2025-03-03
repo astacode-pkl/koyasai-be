@@ -12,6 +12,9 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LogHistoryController;
 use App\Http\Controllers\CompanyProfileController;
+use App\Http\Controllers\EmbedController;
+
+
 
 Route::middleware(['guest'])->group(function () {
     Route::post('/login', [UserController::class, 'login']);
@@ -44,6 +47,7 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::resource('/services', ServiceController::class)->except('show');
+    Route::resource('/embeds', EmbedController::class)->except('show');
     // Authentication
     Route::post('/logout', [UserController::class, 'logout']);
     Route::resource('/galleries', GalleryController::class)->except('show');

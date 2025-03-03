@@ -11,8 +11,8 @@
 
                             <div class="mb-3">
                                 <label for="image"
-                                    class="control-label col-form-label @error('image') is-invalid @enderror">Image</label>
-                                <input type="file" class="form-control" id="image" name="image"
+                                    class="control-label col-form-label ">Image</label>
+                                <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image"
                                     value="{{ old('image') }}" Required />
                                 @error('image')
                                     <div class="invalid-feedback">
@@ -24,7 +24,7 @@
                                 <label for="title" class="control-label col-form-label">Title</label>
                                 <input type="text" class="form-control @error('title') is-invalid @enderror"
                                     id="title" placeholder="Please enter title..." name="title"
-                                    value="{{ old('title') }}" Required />
+                                    value="{{ old('title') }}" Required  />
                                 @error('title')
                                     <div class="invalid-feedback">
                                         <span class="text-danger">{{ $message }}</span>
@@ -33,7 +33,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="title" class="control-label col-form-label">Description</label>
-                                <textarea class="form-control @error('title') is-invalid @enderror" name="description" id="textarea">{{ old('description') }}</textarea>
+                                <textarea class="form-control @error('title') is-invalid @enderror" name="description" placeholder="Please enter description..." id="textarea">{{ old('description') }}</textarea>
                                 @error('title')
                                     <div class="invalid-feedback">
                                         <span class="text-danger">{{ $message }}</span>

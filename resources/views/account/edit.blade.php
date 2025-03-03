@@ -2,6 +2,7 @@
 @section('content')
     <x-breadcrumb></x-breadcrumb>
     <x-alert></x-alert>
+    <div class="card">
     <div class="card-body p-4">
         <h5 class=" fw-semibold">Account information</h5>
         <p class="card-subtitle mb-4">Update your account's profile information and email address. </p>
@@ -74,4 +75,5 @@
                             </button>
         </form>
     </div>
+</div>
 @endsection

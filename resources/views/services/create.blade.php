@@ -3,25 +3,29 @@
     <div class="col-lg-12 d-flex align-items-stretch">
 
         <div class="card w-100">
-            <form method="post" enctype="multipart/form-data" action="/news">
+            <form method="post" enctype="multipart/form-data" action="/services">
                 @csrf
                 <div class="card-body border-top">
                     <div class="row justify-content-between">
-                        <div class="col-11">
+                        <div class="col-12">
 
                             <div class="mb-3">
-                                <label for="icon"
-                                    class="control-label col-form-label @error('icon') is-invalid @enderror">icon</label>
-                                <div class=" d-flex gap-3">
-                                    <textarea type="file" class="form-control" id="icon" name="icon" value="{{ old('icon') }}"
-                                        placeholder="please enter icon you can find on website heroicons.com"></textarea>
-                                    @error('icon')
-                                        <div class="invalid-feedback">
-                                            <span class="text-danger">{{ $message }}</span>
-                                        </div>
-                                    @enderror
-                                    <div class="flex justify-content-center align-content-center">jds</div>
+                                <label for="icon" class="control-label col-form-label ">icon</label>
+                                <div class=" d-flex gap-2">
+                                    <textarea type="text" class="form-control @error('icon') is-invalid @enderror " id="input-icon" name="icon"
+                                        placeholder="please enter text svg for icon you can find on website heroicons.com" required></textarea>
+                                    <div class="d-flex form-control justify-content-center align-items-center w-50 " id="preview-icon"
+                                        style="max-width: 50px; ">
+                                        icon
+                                    </div>
                                 </div>
+                                @error('icon')
+                                    
+                                <div >
+                                    <span class="text-danger"><small>{{ $message }} </small> </span>
+                                </div>
+                                @enderror
+                            
                             </div>
                             <div class="mb-3">
                                 <label for="title" class="control-label col-form-label">Title</label>
@@ -36,7 +40,8 @@
                             </div>
                             <div class="mb-3">
                                 <label for="title" class="control-label col-form-label">Description</label>
-                                <textarea class="form-control @error('title') is-invalid @enderror" name="description" id="textarea">{{ old('description') }}</textarea>
+                                <textarea class="form-control @error('title') is-invalid @enderror" name="description" id="textarea"
+                                    placeholder="Please enter description...">{{ old('description') }}</textarea>
                                 @error('title')
                                     <div class="invalid-feedback">
                                         <span class="text-danger">{{ $message }}</span>
@@ -62,21 +67,13 @@
         </div>
     </div>
     @push('script')
+        <script src="{{ asset('template/back') }}/dist/libs/jquery/dist/jquery.min.js"></script>
         <script>
-            document.getElementById('image').addEventListener('change', function(event) {
-                let preview = document.getElementById('priview');
-                preview.classList.remove('border-dashed');
-                let file = event.target.files[0];
-
-                if (file) {
-                    let reader = new FileReader();
-                    reader.onload = function(e) {
-                        preview.innerHTML = `<img src="${e.target.result}" class="img-fluid rounded" width="250">`;
-                    };
-                    reader.readAsDataURL(file);
-                } else {
-                    preview.innerHTML = '<div class="">Image preview here</div>';
-                }
+            $(document).ready(function() {
+                $('#input-icon').on('keyup', function() {
+                    $('#preview-icon').html($(this).val());
+                    $('#preview-icon').removeClass('border-dashed');
+                });
             });
         </script>
     @endpush
