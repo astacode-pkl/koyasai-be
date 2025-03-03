@@ -8,4 +8,10 @@ class Contact extends Model
 {
     protected $table = 'contacts';
     protected $guarded = ['id'];
+
+
+    public function scopeUnread($query)
+    {
+        return $query->where('status', 'unread');
+    }
 }

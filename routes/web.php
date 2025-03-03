@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\LogHistoryController;
 use App\Http\Controllers\CompanyProfileController;
+use App\Http\Controllers\ContactController;
 
 Route::middleware(['guest'])->group(function () {
     Route::post('/login', [UserController::class, 'login']);
@@ -20,4 +21,12 @@ Route::middleware(['auth'])->group(function () {
     // Authentication
     Route::post('/logout', [UserController::class, 'logout']);
     Route::resource('galleries', GalleryController::class)->except('show');
+
+    route::resource('/contact', ContactController::class);
+    Route::controller(ContactController::class)->group(function () {
+        Route::get('/inbox', 'index');
+        Route::get('/inbox/{id}',  'show');
+        Route::get('/inbox/delete/{id}', 'destroy');
+        Route::post('/inbox/search', 'search');
+    });
 });

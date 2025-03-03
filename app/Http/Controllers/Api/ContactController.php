@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Contact;
 use Illuminate\Support\Facades\Validator;
+use Laravolt\Avatar\Avatar;
 
 class ContactController extends Controller
 {
@@ -24,7 +25,7 @@ class ContactController extends Controller
             return response()->json([
                 'status' => 200,
                 'contact' => $contact,
-            ]);    
+            ]);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 500,
@@ -39,6 +40,7 @@ class ContactController extends Controller
      */
     public function store(Request $request)
     {
+        
         // Validasi request
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
@@ -58,11 +60,23 @@ class ContactController extends Controller
         try {
             // Simpan data ke database
             $contact = Contact::create($request->only(['name', 'email', 'subject', 'message']));
+
+            //laravolt avatar
+            $created_at = now()->format('YmdHis'); 
+            $fileName = $created_at . '.png'; 
+                    
+            $avatar = new Avatar();
+            $avatar->create(strtoupper($contact->name)) 
+                   ->save(public_path('images/contact/') . $fileName, 100); 
+                    
+            $contact->avatar = $fileName;
+            $contact->save();
+
         
             // Jika berhasil, kembalikan response 201 Created
             return response()->json([
                 'status' => 201,
-                'message' => 'Contact has been sent successfully',
+                'message' => 'Message has been sent successfully',
                 'contact' => $contact
             ], 201);
         } catch (Exception $e) {
