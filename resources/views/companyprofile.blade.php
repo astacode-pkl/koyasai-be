@@ -3,10 +3,6 @@
     <x-breadcrumb></x-breadcrumb>
     <x-alert></x-alert>
     <div class="card">
-        <div class="card-header bg-primary">
-            <h4 class="mb-0 text-white">Company Profile</h4>
-        </div>
-
         <form action="/company-profile/{{ Crypt::encryptString($companyProfile->id) }}" method="post"
             enctype="multipart/form-data">
             @csrf
@@ -137,12 +133,9 @@
                 </div>
                 <div class="form-actions text-end">
                     <div class="card-body border-top">
-                        <button type="submit" class="btn btn-primary px-4" onclick="Decision(event)">
-                            <div class="d-flex align-items-center">
-                                <i class="ti ti-device-floppy me-1 fs-4"></i>
-                                Save
-                            </div>
-                        </button>
+                        <button type="submit" class="btn btn-primary px-4 waves-effect waves-light" onclick="Decision(event)">
+                                <i class="ti ti-device-floppy"></i> Save
+                            </button>
 
                     </div>
                 </div>
