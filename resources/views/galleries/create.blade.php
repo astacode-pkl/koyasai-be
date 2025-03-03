@@ -8,23 +8,24 @@
                 <div class="card-body border-top">
                     <div class="row justify-content-between">
                         <div class="col-6">
+                            
                             <div class="mb-3">
-                                <label for="title" class="control-label col-form-label">Title</label>
-                                <input type="text" class="form-control @error('title') is-invalid @enderror"
-                                    id="title" placeholder="Please enter title..." name="title"
-                                    value="{{ old('title') }}" Required />
-                                @error('title')
+                                <label for="image"
+                                    class="control-label col-form-label ">Image</label>
+                                <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image"
+                                    value="{{ old('image') }}" Required />
+                                @error('image')
                                     <div class="invalid-feedback">
                                         <span class="text-danger">{{ $message }}</span>
                                     </div>
                                 @enderror
                             </div>
                             <div class="mb-3">
-                                <label for="image"
-                                    class="control-label col-form-label @error('image') is-invalid @enderror">Image</label>
-                                <input type="file" class="form-control" id="image" name="image"
-                                    value="{{ old('image') }}" Required />
-                                @error('image')
+                                <label for="title" class="control-label col-form-label">Title</label>
+                                <input type="text" class="form-control @error('title') is-invalid @enderror"
+                                    id="title" placeholder="Please enter title..." name="title"
+                                    value="{{ old('title') }}" Required />
+                                @error('title')
                                     <div class="invalid-feedback">
                                         <span class="text-danger">{{ $message }}</span>
                                     </div>
@@ -41,10 +42,10 @@
                     <div class="action-form">
                         <div class="text-end">
                             <button type="submit" class="btn btn-info px-4 waves-effect waves-light">
-                                Save
+                                <i class="ti ti-device-floppy"></i> Save
                             </button>
                             <a href="/galleries" class="btn btn-dark px-4 waves-effect waves-light">
-                                Cancel
+                                <i class="ti ti-xbox-x"></i> Cancel
                             </a>
                         </div>
                     </div>

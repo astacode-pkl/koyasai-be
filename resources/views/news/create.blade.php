@@ -3,17 +3,17 @@
     <div class="col-lg-12 d-flex align-items-stretch">
 
         <div class="card w-100">
-            <form method="post" enctype="multipart/form-data" action="/galleries/{{ $gallery->id }}">
-                @method('put')
+            <form method="post" enctype="multipart/form-data" action="/news">
                 @csrf
                 <div class="card-body border-top">
                     <div class="row justify-content-between">
                         <div class="col-6">
-                            
+
                             <div class="mb-3">
-                                <label for="image" class="control-label col-form-label">Image</label>
-                                <input type="file" class="form-control @error('image') is-invalid @enderror"
-                                    id="image" name="image" />
+                                <label for="image"
+                                    class="control-label col-form-label ">Image</label>
+                                <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image"
+                                    value="{{ old('image') }}" Required />
                                 @error('image')
                                     <div class="invalid-feedback">
                                         <span class="text-danger">{{ $message }}</span>
@@ -24,7 +24,16 @@
                                 <label for="title" class="control-label col-form-label">Title</label>
                                 <input type="text" class="form-control @error('title') is-invalid @enderror"
                                     id="title" placeholder="Please enter title..." name="title"
-                                    value="{{ $gallery->title }}" Required />
+                                    value="{{ old('title') }}" Required  />
+                                @error('title')
+                                    <div class="invalid-feedback">
+                                        <span class="text-danger">{{ $message }}</span>
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="title" class="control-label col-form-label">Description</label>
+                                <textarea class="form-control @error('title') is-invalid @enderror" name="description" placeholder="Please enter description..." id="textarea">{{ old('description') }}</textarea>
                                 @error('title')
                                     <div class="invalid-feedback">
                                         <span class="text-danger">{{ $message }}</span>
@@ -32,9 +41,9 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-6 d-flex align-items-center justify-content-center " id="priview">
-                            <img src="{{ asset('images/galleries/' . $gallery->image) }}" class="img-fluid rounded"
-                                width="250">
+                        <div class="col-6 d-flex align-items-center justify-content-center border-dashed border-dark-subtle"
+                            id="priview">
+                            <div class="">Image preview here</div>
                         </div>
                     </div>
                 </div>
@@ -42,9 +51,9 @@
                     <div class="action-form">
                         <div class="text-end">
                             <button type="submit" class="btn btn-info px-4 waves-effect waves-light">
-                                <i class="ti ti-device-floppy"></i> Edit
+                               <i class="ti ti-device-floppy"></i> Save
                             </button>
-                            <a href="/galleries" class="btn btn-dark px-4 waves-effect waves-light">
+                            <a href="/news" class="btn btn-dark px-4 waves-effect waves-light">
                                 <i class="ti ti-xbox-x"></i> Cancel
                             </a>
                         </div>

@@ -43,7 +43,8 @@
     <div id="main-wrapper">
         <!-- Sidebar Start -->
         <aside class="left-sidebar with-vertical">
-            <div><!-- ---------------------------------- -->
+            <div>
+            <!-- ---------------------------------- -->
                 <!-- Start Vertical Layout Sidebar -->
                 <!-- ---------------------------------- -->
                 <div class="brand-logo d-flex align-items-center justify-content-between">
@@ -103,7 +104,7 @@
                         <!-- ---------------------------------- -->
                         <li class="sidebar-item">
                             <a class="sidebar-link 
-                        @if (request()->is(['news', 'news/*'])) active @endif"
+                        @if (request()->is('news', 'news/*')) active @endif"
                                 href="/news" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-news"></i>
@@ -120,7 +121,7 @@
                             </a>
                             <ul aria-expanded="false" class="collapse first-level">
                               <li class="sidebar-item">
-                                <a href="/categories" class="sidebar-link">
+                                <a href="/categories" class="sidebar-link @if (request()->is('categories', 'categories/*')) active @endif">
                                   <div class="round-16 d-flex align-items-center justify-content-center">
                                     <i class="ti ti-circle"></i>
                                   </div>
@@ -128,7 +129,7 @@
                                 </a>
                               </li>
                               <li class="sidebar-item">
-                                <a href="/catalogs" class="sidebar-link">
+                                <a href="/catalogs" class="sidebar-link @if (request()->is('catalogs', 'catalogs/*')) active @endif">
                                   <div class="round-16 d-flex align-items-center justify-content-center">
                                     <i class="ti ti-circle"></i>
                                   </div>
@@ -142,7 +143,7 @@
                         <!-- Clients -->
                         <!-- ---------------------------------- -->
                         <li class="sidebar-item">
-                            <a class="sidebar-link @if (request()->is('clients')) active @endif" href="/clients"
+                            <a class="sidebar-link @if (request()->is('clients','clients/*')) active @endif" href="/clients"
                                 aria-expanded="false">
                                 <span>
                                     <i class="ti ti-users"></i>
@@ -155,7 +156,7 @@
                         <!-- Heroes -->
                         <!-- ---------------------------------- -->
                         <li class="sidebar-item">
-                            <a class="sidebar-link @if (request()->is('heroes')) active @endif" href="/heroes"
+                            <a class="sidebar-link @if (request()->is('heroes','heroes/*')) active @endif" href="/heroes"
                                 aria-expanded="false">
                                 <span class="d-flex">
                                     <i class="ti ti-slideshow"></i>
@@ -168,7 +169,7 @@
                         <!-- Services -->
                         <!-- ---------------------------------- -->
                         <li class="sidebar-item">
-                            <a class="sidebar-link @if (request()->is('services')) active @endif" href="/services"
+                            <a class="sidebar-link @if (request()->is('services','services/*')) active @endif" href="/services"
                                 aria-expanded="false">
                                 <span class="d-flex">
                                     <i class="ti ti-ad-2"></i>
@@ -180,7 +181,7 @@
                         <!-- Embeds -->
                         <!-- ---------------------------------- -->
                         <li class="sidebar-item">
-                            <a class="sidebar-link @if (request()->is('embeds')) active @endif" href="/embeds"
+                            <a class="sidebar-link @if (request()->is('embeds','embeds/*')) active @endif" href="/embeds"
                                 aria-expanded="false">
                                 <span class="d-flex">
                                     <i class="ti ti-link"></i>
@@ -208,8 +209,16 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link @if (request()->is('log-histories')) active @endif"
-                                href="/log-histories" aria-expanded="false">
+                                <a class="sidebar-link @if (request()->is('account-settings')) active @endif" href="/account-settings">
+                                    <span>
+                                        <i class="ti ti-user-circle"></i>
+                                    </span>
+                                    <span class="hide-menu">Account Settings</span>
+                                </a>
+                            </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link @if (request()->is('loghistories')) active @endif"
+                                href="/loghistories" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-history"></i>
                                 </span>
@@ -370,8 +379,16 @@
                                                         </p>
                                                     </div>
                                                 </div>
-
-                                                <form action="/logout" method="post">
+                                            <a href="/account-settings" class="py-8 px-7 mt-8 d-flex align-items-center">
+                                                <span class="d-flex align-items-center justify-content-center bg-light rounded-1 p-6">
+                                                <img src="{{asset('template/backend')}}/dist/images/svgs/icon-account.svg" alt="" width="24" height="24">
+                                                </span>
+                                                <div class="w-75 d-inline-block v-middle ps-3">
+                                                <h6 class="mb-1 bg-hover-primary fw-semibold"> Account </h6>
+                                                <span class="d-block text-dark">Account Settings</span>
+                                                </div>
+                                            </a>
+                                            <form action="/logout" method="post">
                                                     <div class="d-grid py-4 px-7 pt-8">
                                                         @csrf
                                                         <button type="submit" class="btn btn-primary">Log
@@ -640,6 +657,14 @@
                                 </a>
                             </li>
                             <li class="sidebar-item">
+                                <a class="sidebar-link" href="/account-setting">
+                                    <span>
+                                        <i class="ti ti-user-circle"></i>
+                                    </span>
+                                    <span class="hide-menu">Account Setting</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
                                 <a class="sidebar-link" href="/loghitories">
                                     <span>
                                         <i class="ti ti-history"></i>
@@ -861,21 +886,27 @@
             <div class="modal-dialog modal-dialog-scrollable modal-lg">
                 <div class="modal-content rounded-1">
                     <div class="modal-header border-bottom">
-                        <input type="search" class="form-control fs-3" placeholder="Search here" id="search" />
+                        <input type="search" class="form-control fs-3" name="search" placeholder="Search here" id="search" />
                         <a href="javascript:void(0)" data-bs-dismiss="modal" class="lh-1">
                             <i class="ti ti-x fs-5 ms-3"></i>
                         </a>
                     </div>
                     <div class="modal-body message-body" data-simplebar="">
                         <h5 class="mb-0 fs-5 p-1">Quick Page Links</h5>
-                        <ul class="list mb-0 py-2">
+                        
+                        <ul class="list mb-0 py-2" id="search_result">
+                         {{-- @if(!$categories->isEmpty())
                             <li class="p-1 mb-1 bg-hover-light-black">
                                 <a href="javascript:void(0)">
-                                    <span class="d-block">Modern</span>
+                                 @foreach($categories as $category)
+                                    <a href=""></a>
+                                    <span class="d-block">{{$category->title}}</span>
                                     <span class="text-muted d-block">/dashboards/dashboard1</span>
+                               @endforeach
                                 </a>
                             </li>
-                            <li class="p-1 mb-1 bg-hover-light-black">
+                         @endif --}}
+                                <li class="p-1 mb-1 bg-hover-light-black">
                                 <a href="javascript:void(0)">
                                     <span class="d-block">Dashboard</span>
                                     <span class="text-muted d-block">/dashboards/dashboard2</span>
@@ -960,13 +991,14 @@
     <script defer src="{{ asset('template/backend') }}/dist/js/theme/sidebarmenu.js"></script>
     {{-- <script src="{{ asset('template/backend') }}/dist/js/dashboard.js"></script>     --}}
     <script src="{{ asset('template/backend') }}/dist/js/sidebarmenu.js"></script>
+    <script src="{{ asset('template/back') }}/dist/libs/jquery/dist/jquery.min.js"></script>
+
     <!-- solar icons -->
     <script defer src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
     <script defer src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/libs/owl.carousel/dist/owl.carousel.min.js"></script>
     <script defer src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/libs/apexcharts/dist/apexcharts.min.js"></script>
     {{-- <script src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/js/dashboards/dashboard.js"></script> --}}
  @stack('script')
-
 </body>
 
 </html>
