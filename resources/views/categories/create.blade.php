@@ -37,23 +37,4 @@
             </form>
         </div>
     </div>
-    @push('script')
-        <script>
-            document.getElementById('image').addEventListener('change', function(event) {
-                let preview = document.getElementById('priview');
-                preview.classList.remove('border-dashed');
-                let file = event.target.files[0];
-
-                if (file) {
-                    let reader = new FileReader();
-                    reader.onload = function(e) {
-                        preview.innerHTML = `<img src="${e.target.result}" class="img-fluid rounded" width="250">`;
-                    };
-                    reader.readAsDataURL(file);
-                } else {
-                    preview.innerHTML = '<div class="">Image preview here</div>';
-                }
-            });
-        </script>
-    @endpush
 @endsection

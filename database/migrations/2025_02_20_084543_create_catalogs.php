@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('catalogs', function(blueprint $table)
         {
             $table->id();
-            $table->text('name');
+            $table->string('name');
             $table->text('description');
-            $table->text('price');
-            $table->text('images');
+            $table->integer('price');
+            $table->text('image');
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });

@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\CategoryController;
@@ -23,6 +24,9 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/company-profile/{id}', [CompanyProfileController::class, 'update']);
     Route::resource('/log-histories', LogHistoryController::class)->except('show');
     Route::resource('/categories', CategoryController::class)->except('show');
+    Route::resource('/catalogs', CatalogController::class)->except('show');
+    
+
     // Route::resource('/heroes', HeroController::class)->except('show')->name('store','store.heroes');
     Route::controller(HeroController::class)->group(function () {
         Route::post('/heroes/update-position', 'updatePosition')->name('update.heroes');

@@ -34,18 +34,7 @@
 
                                 </div>
 
-                                <div class="mb-3 d-none">
-                                    <label class="control-label mb-2" for="position">position</label>
-                                    <input type="number" id="position"
-                                        class="form-control @error('position') is-invalid @enderror"
-                                        value="{{ $newPosition }}" name="position" placeholder="Please enter Position..."
-                                        required>
-                                    @error('position')
-                                        <div id="validationServer04Feedback" class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
+                                <input type="number" class="d-none" value="{{ $newPosition }}" name="position">
                             </div>
                             <!--/span-->
 
@@ -75,8 +64,8 @@
                 </form>
             </div>
             <!-- ---------------------
-                                                                                                                        end Person Info
-                                                                                                                    ---------------- -->
+                                                                                                                            end Person Info
+                                                                                                                        ---------------- -->
         </div>
     </div>
     @push('script')
