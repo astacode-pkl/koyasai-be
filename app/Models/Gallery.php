@@ -16,12 +16,11 @@ class Gallery extends Model
     protected $table = 'galleries';
 
     public function getActivitylogOptions(): LogOptions {
-        return LogOptions::defaults()->setDescriptionForEvent(fn(string $eventName) => "Gallery {$eventName}")->logUnguarded();
+        return LogOptions::defaults()->logUnguarded();
         
     }
     public function tapActivity(Activity $activity, string $eventName)
     {
-        $activity->causer_id = Auth::user()->id;
         $activity->causer_name = Auth::user()->name;
     }
     public function images() {

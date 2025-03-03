@@ -17,8 +17,27 @@ abstract class Controller
         if (strpos($imageMimeType, 'image/') === 0) {
             $imageName = date('YmdHis') . '' . str_replace(' ', '', $sha1FileName);
             $image->move($destinationPath, $imageName);
-            
-            dispatch(new ConvertToWebpJob($destinationPath, $imageName, $imageMimeType));
+            $sourceImagePath = public_path($destinationPath . $imageName);
+            $webpImagePath = public_path($destinationPath . pathinfo($imageName, PATHINFO_FILENAME) . '.webp');
+
+            $sourceImage = null;
+            switch ($imageMimeType) {
+                case 'image/jpeg':
+                    $sourceImage = @imagecreatefromjpeg($sourceImagePath);
+                    break;
+                case 'image/png':
+                    $sourceImage = @imagecreatefrompng($sourceImagePath);
+                    break;
+                default:
+                    $sourceImage = false;
+                    break;
+            }
+
+            if ($sourceImage !== false) {
+                imagewebp($sourceImage, $webpImagePath, 80); // Kompresi 80%
+                imagedestroy($sourceImage);
+                @unlink($sourceImagePath); // Hapus file asli setelah dikonversi
+            }
 
             return pathinfo($imageName, PATHINFO_FILENAME) . '.webp';
         }
@@ -61,10 +80,28 @@ abstract class Controller
                 $imageName = date('YmdHis') . '' . str_replace(' ', '', $sha1FileName);
                 $image->move($destinationPath, $imageName);
 
-                    dispatch(new ConvertToWebpJob($destinationPath, $imageName, $imageMimeType));
+                $sourceImagePath = public_path($destinationPath . $imageName);
+                $webpImagePath = public_path($destinationPath . pathinfo($imageName, PATHINFO_FILENAME) . '.webp');
 
+                $sourceImage = null;
+                switch ($imageMimeType) {
+                    case 'image/jpeg':
+                        $sourceImage = @imagecreatefromjpeg($sourceImagePath);
+                        break;
+                    case 'image/png':
+                        $sourceImage = @imagecreatefrompng($sourceImagePath);
+                        break;
+                    default:
+                        $sourceImage = false;
+                        break;
+                }
 
-                    return  pathinfo($imageName, PATHINFO_FILENAME) . '.webp';
+                if ($sourceImage !== false) {
+                    imagewebp($sourceImage, $webpImagePath, 80); // Kompresi 80%
+                    imagedestroy($sourceImage);
+                    @unlink($sourceImagePath); // Hapus file asli setelah dikonversi
+                }
+                return  pathinfo($imageName, PATHINFO_FILENAME) . '.webp';
                 
             }
     }

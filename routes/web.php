@@ -1,13 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HeroController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
-use App\Http\Controllers\AccountController;
-use App\Http\Controllers\EmbedController;
-use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LogHistoryController;
 use App\Http\Controllers\CompanyProfileController;
 use App\Http\Controllers\ContactController;
@@ -41,6 +41,7 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/account-settings/update-password', 'updatePassword')->name('password.update');
         Route::patch('/account-settings/update', 'updateAccount')->name('account.update');
     });
+
     Route::resource('/services', ServiceController::class)->except('show');
     Route::resource('/embeds', EmbedController::class)->except('show');
     // Authentication
