@@ -3,7 +3,7 @@
 
 <head>
     <!--  Title -->
-    <title>Mordenize</title>
+    <title>{{ $companyProfile->name }}</title>
     <!--  Required Meta Tag -->
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -82,6 +82,8 @@
     <!--  Import Js Files -->
     <script src="{{ asset('template/backend') }}/dist/libs/jquery/dist/jquery.min.js"></script>
     <script src="{{ asset('template/backend') }}/dist/js/custom.js"></script>
+    <script src="{{ asset('template/backend') }}/dist/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
 
     <script>
     function togglePassword() {

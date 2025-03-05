@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\Activitylog\LogOptions;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Models\Activity;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class CompanyProfile extends Model
 {
@@ -17,6 +19,14 @@ class CompanyProfile extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->logUnguarded()->setDescriptionForEvent(fn(string $eventName) => auth()->user()->name . " {$eventName} Company Profile");
+            ->logUnguarded();
+    }
+    public function tapActivity(Activity $activity)
+    {
+        if (!empty(Auth::user()->name)) {
+            $activity->causer_name = Auth::user()->name;
+        } else {
+            $activity->causer_name = null;
+        }
     }
 }

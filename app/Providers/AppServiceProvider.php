@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
             static $companyProfile = null;
 
             if ($companyProfile === null) {
-                $companyProfile = \App\Models\CompanyProfile::first()->get();
+                $companyProfile = \App\Models\CompanyProfile::select(['name','logo_mark','logo_type'])->get();
                 foreach ($companyProfile as $item) {
                     $companyProfile = $item;
                 }

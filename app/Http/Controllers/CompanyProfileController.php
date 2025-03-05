@@ -16,8 +16,9 @@ class CompanyProfileController extends Controller
      */
     public function index()
     {
-        $companyProfile = CompanyProfile::first()->get();
-        return view('companyprofile', compact('companyProfile'));
+        $companyprofile = CompanyProfile::first()->get();
+        $companyprofile = $companyprofile[0];
+        return view('companyprofile', compact('companyprofile'));
     }
 
     /**
