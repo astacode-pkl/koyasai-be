@@ -21,7 +21,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //agar contact bisa di semua view
+        if($this->app->runningInConsole()) {
+            return;
+        }
         $contacts = Contact::orderByDesc('status')->orderByDesc('created_at')->get();
         View::share('contacts', $contacts);
 
