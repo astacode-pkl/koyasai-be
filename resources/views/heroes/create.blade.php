@@ -3,9 +3,6 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
-                <div class="card-header bg-primary">
-                    <h4 class="mb-0 text-white">Create Hero</h4>
-                </div>
                 <form action="{{ route('store.heroes') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="card-body">
@@ -18,7 +15,7 @@
                                             <div class="custom-file ">
                                                 <input type="file"
                                                     class="form-control  @error('image') is-invalid @enderror"
-                                                    id="fileInput" aria-describedby="inputGroupFileAddon01" name="image"
+                                                    id="image" aria-describedby="inputGroupFileAddon01" name="image"
                                                     required>
                                                 @error('image')
                                                     <div id="validationServer04Feedback" class="invalid-feedback">
@@ -36,24 +33,23 @@
 
                                 <input type="number" class="d-none" value="{{ $newPosition }}" name="position">
                             </div>
-                            <!--/span-->
-
-                            <div class="position-relative col-md-4 d-none " id="display">
-                                <img src="" class="card-img-top  rounded-1 " id="preview" alt="">
+                            <div class="col-6 d-flex align-items-center justify-content-center border-dashed border-dark-subtle"
+                                id="preview">
+                                <div class="">Image preview here</div>
                             </div>
                         </div>
-                        <div class="form-actions text-end">
+                        <div class="form-actions text-end mt-3">
                             <div class="card-body border-top">
                                 <button type="submit" class="btn btn-primary  px-4">
                                     <div class="d-flex align-items-center">
-                                        <i class="ti ti-device-floppy me-1 fs-5"></i>
-                                        Save
+                                        <i class="ti ti-plus"></i>
+                                        Create
                                     </div>
                                 </button>
                                 <a href="/heroes/">
-                                    <button type="button" class="btn btn-danger  px-4 ms-2 text-white">
+                                    <button type="button" class="btn btn-dark  px-4 ms-2 text-white">
                                         <div class="">
-                                            <i class="ti ti-circle-x me-1 fs-5"></i>
+                                            <i class="ti ti-circle-x"></i>
                                             Cancel
                                         </div>
                                     </button>
@@ -64,11 +60,27 @@
                 </form>
             </div>
             <!-- ---------------------
-                                                                                                                            end Person Info
-                                                                                                                        ---------------- -->
+                                                                                                                                        end Person Info
+                                                                                                                                    ---------------- -->
         </div>
     </div>
     @push('script')
-        <script src="{{ asset('js/imagePreview.js') }}"></script>
+        <script>
+            document.getElementById('image').addEventListener('change', function(event) {
+                let preview = document.getElementById('preview');
+                preview.classList.remove('border-dashed');
+                let file = event.target.files[0];
+
+                if (file) {
+                    let reader = new FileReader();
+                    reader.onload = function(e) {
+                        preview.innerHTML = `<img src="${e.target.result}" class="img-fluid rounded" width="250">`;
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    preview.innerHTML = '<div class="">Image preview here</div>';
+                }
+            });
+        </script>
     @endpush
 @endsection

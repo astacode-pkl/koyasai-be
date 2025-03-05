@@ -53,7 +53,7 @@
                         <div class="col-6">
                             <div class="mb-3">
                                 <label class="control-label col-form-label">Description</label>
-                                <textarea class="form-control" name="description" id="floatingTextarea" placeholder="Please enter description..."></textarea>
+                                <textarea class="form-control" name="description" id="floatingTextarea" placeholder="Please enter description...">{{ old('description') }}</textarea>
                             </div>
                         </div>
                         <div class="col-6">
@@ -78,7 +78,7 @@
                     <div class="action-form">
                         <div class="text-end">
                             <button type="submit" class="btn btn-primary px-4 waves-effect waves-light">
-                                <i class="ti ti-plus"></i> Add
+                                <i class="ti ti-plus"></i> Create
                             </button>
                             <a href="/catalogs" class="btn btn-dark px-4 waves-effect waves-light">
                                 <i class="ti ti-xbox-x"></i> Cancel

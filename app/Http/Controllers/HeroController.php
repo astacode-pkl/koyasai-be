@@ -14,7 +14,7 @@ class HeroController extends Controller
      */
     public function index()
     {
-        $heroes = Hero::orderBy('position')->get();
+        $heroes = Hero::select('id','position','image')->orderBy('position')->get();
         return view('heroes.heroes', compact('heroes'));
     }
 
@@ -41,7 +41,7 @@ class HeroController extends Controller
 
         $imageName = $this->uploadImage('images/heroes/', $request->file('image'));
 
-        Hero::create(['position' => $validated['position'], 'images' => $imageName]);
+        Hero::create(['position' => $validated['position'], 'image' => $imageName]);
         return redirect('/heroes')->with('success', 'Hero created successfully!!');
     }
 
@@ -59,7 +59,7 @@ class HeroController extends Controller
     public function edit(string $id)
     {
         $id = Crypt::decryptString($id);
-        $hero = Hero::find($id);
+        $hero = Hero::select('id','position','image')->find($id);
         return view('heroes.edit', compact('hero'));
     }
 
@@ -77,7 +77,7 @@ class HeroController extends Controller
         $hero = Hero::find($id);
         $hero->position = $request->position;
         $imageName = $this->updateImage('images/heroes/', $hero->image, $request->file('image'));
-        $hero->update(['images' => $imageName]);
+        $hero->update(['image' => $imageName]);
         return redirect('/heroes')->with('success', 'Hero updated succesfully!');
     }
 
@@ -90,8 +90,8 @@ class HeroController extends Controller
 
         $table = Hero::find($id);
         if ($table != null) {
-            $imageName = $this->destroyImage('images/heroes/', $table->images);
-            $table->delete(['images' => $imageName]);
+            $this->destroyImage('images/heroes/', $table->images);
+            $table->delete();
             return redirect()->back()->with('success', 'Hero deleted successfully!!');
         }
         return redirect()->back();

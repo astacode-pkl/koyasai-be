@@ -9,10 +9,9 @@ use Illuminate\Support\Facades\Crypt;
 
 class CategoryController extends Controller
 {
-    protected $guarded = ['id'];
     public function index()
     {
-        $categories = Category::select(['title', 'id'])->get();
+        $categories = Category::select(['title', 'id'])->latest()->get();
         return view('categories.categories', compact('categories'));
     }
 
@@ -55,7 +54,7 @@ class CategoryController extends Controller
     public function edit(string $id)
     {
         $id = Crypt::decryptString($id);
-        $category = Category::find($id);
+        $category = Category::select('id', 'title')->find($id);
         return view('categories.edit', compact('category'));
     }
 

@@ -41,7 +41,8 @@
                                 <option value="">Choose: Category</option>
                                 @forelse ($categories as $category)
                                     <option value="{{ $category->id }}"
-                                        {{ $category->id === $catalog->category_id ? 'selected' : '' }}>{{ $category->title }}
+                                        {{ $category->id === $catalog->category_id ? 'selected' : '' }}>
+                                        {{ $category->title }}
                                     </option>
                                 @empty
                                     <option value="">Category not found</option>

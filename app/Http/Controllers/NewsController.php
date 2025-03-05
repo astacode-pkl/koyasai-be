@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\News;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 
 class NewsController extends Controller
 {
@@ -12,8 +13,8 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $news = News::latest()->get();
-        return view('news.news',compact('news'));
+        $news = News::select('id', 'image', 'title', 'description')->latest()->get();
+        return view('news.news', compact('news'));
     }
 
     /**
@@ -22,7 +23,6 @@ class NewsController extends Controller
     public function create()
     {
         return view('news.create');
-
     }
 
     /**
@@ -35,9 +35,9 @@ class NewsController extends Controller
             'description' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg|max:2048'
         ]);
-        $image = $this->uploadImage('images/news/',$request->file('image'));
-        News::create(['title' => $validated['title'],'image' => $image,'description' => $validated['description']]);
-        return redirect('/news')->with('success','News created successfully!!');
+        $image = $this->uploadImage('images/news/', $request->file('image'));
+        News::create(['title' => $validated['title'], 'image' => $image, 'description' => $validated['description']]);
+        return redirect('/news')->with('success', 'News created successfully!!');
     }
 
     /**
@@ -51,36 +51,39 @@ class NewsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(News $news)
+    public function edit(string $id)
     {
-        $news = News::find($news->id);
-        return view('news.edit',compact('news'));
+        $id = Crypt::decryptString($id);
+        $news = News::select('id', 'image', 'title', 'description')->find($id);
+        return view('news.edit', compact('news'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, News $news)
+    public function update(Request $request, string $id)
     {
         $validated = $request->validate([
             'title' => 'required',
             'description' => 'required',
             'image' => 'image|mimes:jpeg,png,jpg|max:2048'
         ]);
-        
-        $table = News::find($news->id);
-        $image = $this->updateImage('images/news/',$table->image,$request->file('image'));
-        $table->update(['title' => $validated['title'],'image' => $image,'description' => $validated['description']]);
-        return redirect('/news')->with('success','News updated successfully!!');
+        $id = Crypt::decryptString($id);
+        $table = News::find($id);
+        $image = $this->updateImage('images/news/', $table->image, $request->file('image'));
+        $table->update(['title' => $validated['title'], 'image' => $image, 'description' => $validated['description']]);
+        return redirect('/news')->with('success', 'News updated successfully!!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(News $news)
+    public function destroy(string $id)
     {
-        $this->destroyImage('images/news/',$news->image);
+        $id = Crypt::decryptString($id);
+        $news = News::find($id);
+        $this->destroyImage('images/news/', $news->image);
         $news->delete();
-        return redirect('/news')->with('success','News deleted successfully!!');
+        return redirect('/news')->with('success', 'News deleted successfully!!');
     }
 }

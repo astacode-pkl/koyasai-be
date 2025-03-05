@@ -1,20 +1,19 @@
 <?php
 
+use Pest\Laravel\Authentication;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HeroController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\GalleryController;
-use App\Http\Controllers\ServiceController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\LogHistoryController;
-use App\Http\Controllers\CompanyProfileController;
-use App\Http\Controllers\ContactController;
-use App\Http\Controllers\SearchController;
-use App\Http\Controllers\ClientController;
 use App\Http\Controllers\EmbedController;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\LogHistoryController;
+use App\Http\Controllers\CompanyProfileController;
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\ClientController;
 
 
 
