@@ -12,6 +12,10 @@ use App\Http\Controllers\LogHistoryController;
 use App\Http\Controllers\CompanyProfileController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\ClientController;
+use App\Http\Controllers\EmbedController;
+use App\Http\Controllers\AccountController;
+
 
 
 
@@ -48,4 +52,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [UserController::class, 'logout']);
     Route::resource('/galleries', GalleryController::class)->except('show');
     Route::resource('/news', NewsController::class)->except('show');
+
+
+    Route::resource('/categories', CategoryController::class)->except('show');
+    Route::resource('/clients', ClientController::class)->except('show');
 });
