@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Service;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 
 class ServiceController extends Controller
 {
@@ -12,8 +13,8 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        $services = Service::latest()->get();
-        return view('services.services',compact('services'));
+        $services = Service::select(['id', 'icon', 'title', 'description'])->latest()->get();
+        return view('services.services', compact('services'));
     }
 
     /**
@@ -32,7 +33,7 @@ class ServiceController extends Controller
         $validated = $request->validate([
             'title' => 'required',
             'description' => 'required',
-            'icon' => ['required',function ($attribute, $value, $fail) {
+            'icon' => ['required', function ($attribute, $value, $fail) {
                 libxml_use_internal_errors(true); // Hindari error PHP jika XML tidak valid
                 $xml = simplexml_load_string($value);
                 if ($xml === false || $xml->getName() !== 'svg') {
@@ -45,7 +46,7 @@ class ServiceController extends Controller
         $table->icon = $request->icon;
         $table->description = $request->description;
         $table->save();
-        return redirect('/services')->with('success','Service updated successfully!!');
+        return redirect('/services')->with('success', 'Service created successfully!!');
     }
 
     /**
@@ -59,21 +60,22 @@ class ServiceController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Service $service)
+    public function edit(string $id)
     {
-        $service =  Service::find($service->id);
-        return view('services.edit',compact('service'));
+        $id = Crypt::decryptString($id);
+        $service = Service::select(['id', 'icon', 'title', 'description'])->find($id);
+        return view('services.edit', compact('service'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Service $service)
+    public function update(Request $request, string $id)
     {
         $validated = $request->validate([
             'title' => 'required',
             'description' => 'required',
-            'icon' => ['required',function ($attribute, $value, $fail) {
+            'icon' => ['required', function ($attribute, $value, $fail) {
                 libxml_use_internal_errors(true); // Hindari error PHP jika XML tidak valid
                 $xml = simplexml_load_string($value);
                 if ($xml === false || $xml->getName() !== 'svg') {
@@ -81,22 +83,23 @@ class ServiceController extends Controller
                 }
             }]
         ]);
-        $table = Service::find($service->id);
+        $id = Crypt::decryptString($id);
+        $table = Service::find($id);
         $table->title = $request->title;
         $table->icon = $request->icon;
         $table->description = $request->description;
         $table->update();
-        return redirect('/services')->with('success','Service updated successfully!!');
+        return redirect('/services')->with('success', 'Service updated successfully!!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Service $service)
+    public function destroy(string $id)
     {
-        $table = Service::find($service->id);
+        $id = Crypt::decryptString($id);
+        $table = Service::find($id);
         $table->delete();
-        return redirect('/services')->with('success','Service deleted successfully!!');
-
+        return redirect('/services')->with('success', 'Service deleted successfully!!');
     }
 }

@@ -11,13 +11,13 @@
             <div class="card-body">
 
                 <div class="mb-2">
-                    <div class="d-flex justify-content-between align-content-center">
-                        <h5 class="mb-0 ">Services</h5>
-                        <a href="/services/create"><button class="btn btn-primary"> <i class="ti ti-plus "></i> Create</button>
+                     <div class="d-flex align-items-end flex-column">
+                        <a href="/services/create"><button class="btn btn-primary"> <i class="ti ti-plus "></i>
+                                Create</button>
                         </a>
                     </div>
                     <div class="table-responsive m-t-40">
-                        <table id="config-table" class="table border display table-bordered  no-wrap d-block overflow-x-auto">
+                        <table id="config-table" class="table border display table-bordered  no-wrap">
                             <thead>
                                 <!-- start row -->
                                 <tr>
@@ -36,12 +36,12 @@
                                         <td>{!! $service->icon !!}</td>
                                         <td>{{ $service->title }}</td>
                                         <td id="description">{{ $service->description }}</td>
-                                        <td><a href="/services/{{ $service->id }}/edit"
+                                        <td><a href="/services/{{ Crypt::encryptString($service->id) }}/edit"
                                                 class="btn btn-warning  px-4 waves-effect waves-light">
                                                 <i class="ti ti-edit "></i> Edit
                                             </a>
                                             </button>
-                                            <form action="/services/{{ $service->id }}" method="POST" class="d-inline">
+                                            <form action="/services/{{ Crypt::encryptString($service->id) }}" method="POST" class="d-inline">
                                                 @method('delete')
                                                 @csrf
                                                 <button type="submit" class="btn btn-danger px-4 waves-effect waves-light">

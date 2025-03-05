@@ -1,7 +1,7 @@
 @extends('layout.app')
 @section('content')
+<x-breadcrumb></x-breadcrumb>
     <div class="col-lg-12 d-flex align-items-stretch">
-
         <div class="card w-100">
             <form method="post" enctype="multipart/form-data" action="/news">
                 @csrf
@@ -51,7 +51,7 @@
                     <div class="action-form">
                         <div class="text-end">
                             <button type="submit" class="btn btn-info px-4 waves-effect waves-light">
-                               <i class="ti ti-device-floppy"></i> Save
+                               <i class="ti ti-plus"></i> Create
                             </button>
                             <a href="/news" class="btn btn-dark px-4 waves-effect waves-light">
                                 <i class="ti ti-xbox-x"></i> Cancel

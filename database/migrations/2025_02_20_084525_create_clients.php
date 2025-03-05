@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('clients', function (blueprint $table)
         {
             $table->id();
-            $table->text('images');
+            $table->text('image');
             $table->timestamps();
         });
     }

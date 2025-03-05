@@ -66,8 +66,8 @@ class CatalogController extends Controller
     public function edit(string $id)
     {
         $id = Crypt::decryptString($id);
-        $catalog = Catalog::find($id);
-        $categories = Category::all();
+        $catalog = Catalog::select(['id', 'name', 'description', 'price', 'image', 'category_id'])->find($id);
+        $categories = Category::select('id', 'title')->get();
         return view('catalogs.edit', compact('catalog', 'categories'));
     }
 
@@ -85,17 +85,13 @@ class CatalogController extends Controller
         ]);
         $id = Crypt::decryptString($id);
         $table = Catalog::find($id);
-        if(empty($request->file('image'))){
-            $image = $table->image;
-        }else{
         $image = $this->updateImage('images/catalogs/', $table->image, $request->file('image'));
-        }
         $table->update([
             'name' => $validated['name'],
             'image' => $image,
             'price' => $validated['price'],
             'description' => $validated['description'],
-            'category_id' => $validated['category_id'],
+            'category_id' => $validated['category_id']
         ]);
         return redirect('/catalogs')->with('success', 'Catalog updated successfully!!');
     }
@@ -109,6 +105,6 @@ class CatalogController extends Controller
         $catalog = Catalog::find($id);
         $this->destroyImage('images/catalogs/', $catalog->image);
         $catalog->delete();
-        return redirect('/galleries')->with('success', 'Catalog deleted successfully!!');
+        return redirect('/catalogs')->with('success', 'Catalog deleted successfully!!');
     }
 }

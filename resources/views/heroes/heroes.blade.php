@@ -4,11 +4,8 @@
     @endpush
     <x-breadcrumb></x-breadcrumb>
     <x-alert></x-alert>
-    <div class="border-bottom title-part-padding d-flex justify-content-between  align-items-center">
-        <h4 class="card-title mb-0">Heroes</h4>
-        <a href="/heroes/create">
-            <button class="btn btn-primary">
-                <i class="ti ti-plus"></i>
+    <div class="d-flex align-items-end flex-column title-part-padding border-bottom mb-3">
+        <a href="/heroes/create"><button class="btn btn-primary"><i class="ti ti-plus "></i>
                 Create</button>
         </a>
     </div>
@@ -23,7 +20,7 @@
                         <div class="w-100">
                             <div class="row align-content-center">
                                 <div class="col-md-3 ">
-                                    <img src="{{ asset('images/heroes/' . $hero->images) }}" alt="image-slide"
+                                    <img src="{{ asset('images/heroes/' . $hero->image) }}" alt="image-slide"
                                         style="max-width: 250px; min-width: 100%;">
                                 </div>
                                 <div class="col-md-7 bg-white d-flex align-items-center justify-content-center">
@@ -34,7 +31,7 @@
                                     <a href="/heroes/edit/{{ Crypt::encryptString($hero->id) }}"
                                         class="btn btn-primary py-2">
 
-                                        <i class="ti ti-pencil"></i>
+                                        <i class="ti ti-edit"></i>
 
                                     </a>
                                     <a href="{{ route('destroyHero', Crypt::encryptString($hero->id)) }}"

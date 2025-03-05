@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use Spatie\Activitylog\LogOptions;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Models\Activity;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class Hero extends Model
@@ -15,6 +17,10 @@ class Hero extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->logUnguarded()->setDescriptionForEvent(fn(string $eventName) => auth()->user()->name . " {$eventName} Hero");
+            ->logUnguarded();
+    }
+    public function tapActivity(Activity $activity)
+    {
+        $activity->causer_name = Auth::user()->name;
     }
 }

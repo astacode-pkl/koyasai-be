@@ -8,7 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Favicon icon-->
-    <link rel="shortcut icon" type="image/png" href="{{ asset('images/companyprofile/'.$companyProfile->logo_mark) }}" />
+    <link rel="shortcut icon" type="image/png"
+        href="{{ asset('images/companyprofile/' . $companyProfile->logo_mark) }}" />
 
     <!-- Core Css -->
     <link rel="stylesheet" href="https://bootstrapdemos.adminmart.com/modernize/dist/assets/css/styles.css" />
@@ -35,20 +36,22 @@
     </div>
     <!-- Preloader -->
     <div class="preloader">
-        <img src="{{ asset('images/companyprofile/'.$companyProfile->logo_mark) }}" alt="loader"
+        <img src="{{ asset('images/companyprofile/' . $companyProfile->logo_mark) }}" alt="loader"
             class="lds-ripple img-fluid" />
     </div>
     <div id="main-wrapper">
         <!-- Sidebar Start -->
         <aside class="left-sidebar with-vertical">
             <div>
-            <!-- ---------------------------------- -->
+                <!-- ---------------------------------- -->
                 <!-- Start Vertical Layout Sidebar -->
                 <!-- ---------------------------------- -->
                 <div class="brand-logo d-flex align-items-center justify-content-between">
                     <a href="/" class="text-nowrap logo-img">
-                        <img src="{{ asset('images/companyprofile/'.$companyProfile->logo_mark) }}" width="10%" alt="Logo Mark" />
-                        <img src="{{ asset('images/companyprofile/'.$companyProfile->logo_type) }}" width="10%" alt="Logo Type" />
+                        <img src="{{ asset('images/companyprofile/' . $companyProfile->logo_mark) }}" width="10%"
+                            alt="Logo Mark" />
+                        <img src="{{ asset('images/companyprofile/' . $companyProfile->logo_type) }}" width="10%"
+                            alt="Logo Type" />
                     </a>
                     <a href="javascript:void(0)"
                         class="sidebartoggler ms-auto text-decoration-none fs-5 d-block d-xl-none">
@@ -89,7 +92,7 @@
                         <!-- Gallery -->
                         <!-- -------    --------------------------- -->
                         <li class="sidebar-item">
-                            <a class="sidebar-link @if (request()->is('galleries','galleries/*')) active @endif" href="/galleries"
+                            <a class="sidebar-link @if (request()->is('galleries', 'galleries/*')) active @endif" href="/galleries"
                                 aria-expanded="false">
                                 <span>
                                     <i class="ti ti-photo"></i>
@@ -112,36 +115,38 @@
                         </li>
                         <li class="sidebar-item">
                             <a class="sidebar-link has-arrow  " href="#" aria-expanded="false">
-                              <span class="d-flex">
-                                <i class="ti ti-basket"></i>
-                              </span>
-                              <span class="hide-menu">Catalogs</span>
+                                <span class="d-flex">
+                                    <i class="ti ti-basket"></i>
+                                </span>
+                                <span class="hide-menu">Catalogs</span>
                             </a>
                             <ul aria-expanded="false" class="collapse first-level">
-                              <li class="sidebar-item">
-                                <a href="/categories" class="sidebar-link @if (request()->is('categories', 'categories/*')) active @endif">
-                                  <div class="round-16 d-flex align-items-center justify-content-center">
-                                    <i class="ti ti-circle"></i>
-                                  </div>
-                                  <span class="hide-menu">Categories</span>
-                                </a>
-                              </li>
-                              <li class="sidebar-item">
-                                <a href="/catalogs" class="sidebar-link @if (request()->is('catalogs', 'catalogs/*')) active @endif">
-                                  <div class="round-16 d-flex align-items-center justify-content-center">
-                                    <i class="ti ti-circle"></i>
-                                  </div>
-                                  <span class="hide-menu">Catalogs</span>
-                                </a>
-                              </li>
+                                <li class="sidebar-item">
+                                    <a href="/categories"
+                                        class="sidebar-link @if (request()->is('categories', 'categories/*')) active @endif">
+                                        <div class="round-16 d-flex align-items-center justify-content-center">
+                                            <i class="ti ti-circle"></i>
+                                        </div>
+                                        <span class="hide-menu">Categories</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="/catalogs"
+                                        class="sidebar-link @if (request()->is('catalogs', 'catalogs/*')) active @endif">
+                                        <div class="round-16 d-flex align-items-center justify-content-center">
+                                            <i class="ti ti-circle"></i>
+                                        </div>
+                                        <span class="hide-menu">Catalogs</span>
+                                    </a>
+                                </li>
                             </ul>
-                          </li>
-                        
+                        </li>
+
                         <!-- ---------------------------------- -->
                         <!-- Clients -->
                         <!-- ---------------------------------- -->
                         <li class="sidebar-item">
-                            <a class="sidebar-link @if (request()->is('clients','clients/*')) active @endif" href="/clients"
+                            <a class="sidebar-link @if (request()->is('clients', 'clients/*')) active @endif" href="/clients"
                                 aria-expanded="false">
                                 <span>
                                     <i class="ti ti-users"></i>
@@ -154,7 +159,7 @@
                         <!-- Heroes -->
                         <!-- ---------------------------------- -->
                         <li class="sidebar-item">
-                            <a class="sidebar-link @if (request()->is('heroes','heroes/*')) active @endif" href="/heroes"
+                            <a class="sidebar-link @if (request()->is('heroes', 'heroes/*')) active @endif" href="/heroes"
                                 aria-expanded="false">
                                 <span class="d-flex">
                                     <i class="ti ti-slideshow"></i>
@@ -167,7 +172,7 @@
                         <!-- Services -->
                         <!-- ---------------------------------- -->
                         <li class="sidebar-item">
-                            <a class="sidebar-link @if (request()->is('services','services/*')) active @endif" href="/services"
+                            <a class="sidebar-link @if (request()->is('services', 'services/*')) active @endif" href="/services"
                                 aria-expanded="false">
                                 <span class="d-flex">
                                     <i class="ti ti-ad-2"></i>
@@ -179,7 +184,7 @@
                         <!-- Embeds -->
                         <!-- ---------------------------------- -->
                         <li class="sidebar-item">
-                            <a class="sidebar-link @if (request()->is('embeds','embeds/*')) active @endif" href="/embeds"
+                            <a class="sidebar-link @if (request()->is('embeds', 'embeds/*')) active @endif" href="/embeds"
                                 aria-expanded="false">
                                 <span class="d-flex">
                                     <i class="ti ti-link"></i>
@@ -207,13 +212,14 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                                <a class="sidebar-link @if (request()->is('account-settings')) active @endif" href="/account-settings">
-                                    <span>
-                                        <i class="ti ti-user-circle"></i>
-                                    </span>
-                                    <span class="hide-menu">Account Settings</span>
-                                </a>
-                            </li>
+                            <a class="sidebar-link @if (request()->is('account-settings')) active @endif"
+                                href="/account-settings">
+                                <span>
+                                    <i class="ti ti-user-circle"></i>
+                                </span>
+                                <span class="hide-menu">Account Settings</span>
+                            </a>
+                        </li>
                         <li class="sidebar-item">
                             <a class="sidebar-link @if (request()->is('log-histories')) active @endif"
                                 href="/log-histories" aria-expanded="false">
@@ -276,11 +282,11 @@
                         </ul>
 
                         <div class="d-block d-lg-none py-4">
-                            <a href="../main/index.html" class="text-nowrap logo-img">
-                                <img src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/logos/dark-logo.svg"
-                                    class="dark-logo" alt="Logo-Dark" />
-                                <img src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/logos/light-logo.svg"
-                                    class="light-logo" alt="Logo-light" />
+                            <a href="/" class="text-nowrap logo-img">
+                                <img src="{{ asset('images/companyprofile/' . $companyProfile->logo_mark) }}"
+                                    width="10%" alt="Logo Mark" />
+                                <img src="{{ asset('images/companyprofile/' . $companyProfile->logo_type) }}"
+                                    width="10%" alt="Logo Type" />
                             </a>
                         </div>
                         <a class="navbar-toggler nav-icon-hover-bg rounded-circle p-0 mx-0 border-0"
@@ -434,20 +440,24 @@
                                                     <div class="ms-3">
                                                         <h5 class="mb-1 fs-3">{{ auth()->user()->name }}</h5>
                                                         <p class="mb-0 d-flex align-items-center gap-2">
-                                                            <i class="ti ti-mail fs-4"></i> {{ auth()->user()->email }}
+                                                            <i class="ti ti-mail fs-4"></i>
+                                                            {{ auth()->user()->email }}
                                                         </p>
                                                     </div>
                                                 </div>
-                                            <a href="/account-settings" class="py-8 px-7 mt-8 d-flex align-items-center">
-                                                <span class="d-flex align-items-center justify-content-center bg-light rounded-1 p-6">
-                                                <img src="{{asset('template/backend')}}/dist/images/svgs/icon-account.svg" alt="" width="24" height="24">
-                                                </span>
-                                                <div class="w-75 d-inline-block v-middle ps-3">
-                                                <h6 class="mb-1 bg-hover-primary fw-semibold"> Account </h6>
-                                                <span class="d-block text-dark">Account Settings</span>
-                                                </div>
-                                            </a>
-                                            <form action="/logout" method="post">
+                                                <a href="/account-settings"
+                                                    class="py-8 px-7 mt-8 d-flex align-items-center">
+                                                    <span
+                                                        class="d-flex align-items-center justify-content-center bg-light rounded-1 p-6">
+                                                        <img src="{{ asset('template/backend') }}/dist/images/svgs/icon-account.svg"
+                                                            alt="" width="24" height="24">
+                                                    </span>
+                                                    <div class="w-75 d-inline-block v-middle ps-3">
+                                                        <h6 class="mb-1 bg-hover-primary fw-semibold"> Account </h6>
+                                                        <span class="d-block text-dark">Account Settings</span>
+                                                    </div>
+                                                </a>
+                                                <form action="/logout" method="post">
                                                     <div class="d-grid py-4 px-7 pt-8">
                                                         @csrf
                                                         <button type="submit" class="btn btn-primary">Log
@@ -477,11 +487,11 @@
                                 </a>
                             </li>
                             <li class="nav-item d-none d-xl-block">
-                                <a href="../main/index.html" class="text-nowrap nav-link">
-                                    <img src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/logos/dark-logo.svg"
-                                        class="dark-logo" width="180" alt="modernize-img" />
-                                    <img src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/logos/light-logo.svg"
-                                        class="light-logo" width="180" alt="modernize-img" />
+                                <a href="/" class="text-nowrap nav-link">
+                                    <img src="{{ asset('images/companyprofile/' . $companyProfile->logo_mark) }}"
+                                        width="10%" alt="Logo Mark" />
+                                    <img src="{{ asset('images/companyprofile/' . $companyProfile->logo_type) }}"
+                                        width="10%" alt="Logo Type" />
                                 </a>
                             </li>
                             <li class="nav-item nav-icon-hover-bg rounded-circle d-none d-xl-flex">
@@ -656,7 +666,8 @@
                                                     <div class="ms-3">
                                                         <h5 class="mb-1 fs-3">{{ auth()->user()->name }}</h5>
                                                         <p class="mb-0 d-flex align-items-center gap-2">
-                                                            <i class="ti ti-mail fs-4"></i> {{ auth()->user()->email }}
+                                                            <i class="ti ti-mail fs-4"></i>
+                                                            {{ auth()->user()->email }}
                                                         </p>
                                                     </div>
                                                 </div>
@@ -1002,27 +1013,17 @@
             <div class="modal-dialog modal-dialog-scrollable modal-lg">
                 <div class="modal-content rounded-1">
                     <div class="modal-header border-bottom">
-                        <input type="search" class="form-control fs-3" name="search" placeholder="Search here" id="search" />
+                        <input type="search" class="form-control fs-3" name="search" placeholder="Search here"
+                            id="search" />
                         <a href="javascript:void(0)" data-bs-dismiss="modal" class="lh-1">
                             <i class="ti ti-x fs-5 ms-3"></i>
                         </a>
                     </div>
                     <div class="modal-body message-body" data-simplebar="">
                         <h5 class="mb-0 fs-5 p-1">Quick Page Links</h5>
-                        
+
                         <ul class="list mb-0 py-2" id="search_result">
-                         {{-- @if(!$categories->isEmpty())
                             <li class="p-1 mb-1 bg-hover-light-black">
-                                <a href="javascript:void(0)">
-                                 @foreach($categories as $category)
-                                    <a href=""></a>
-                                    <span class="d-block">{{$category->title}}</span>
-                                    <span class="text-muted d-block">/dashboards/dashboard1</span>
-                               @endforeach
-                                </a>
-                            </li>
-                         @endif --}}
-                                <li class="p-1 mb-1 bg-hover-light-black">
                                 <a href="javascript:void(0)">
                                     <span class="d-block">Dashboard</span>
                                     <span class="text-muted d-block">/dashboards/dashboard2</span>
@@ -1105,7 +1106,7 @@
     <script src="{{ asset('template/backend') }}/dist/js/theme/theme.js"></script>
     <script src="{{ asset('template/backend') }}/dist/js/theme/app.min.js"></script>
     <script src="{{ asset('template/backend') }}/dist/js/theme/sidebarmenu.js"></script>
-    <script src="{{ asset('template/backend') }}/dist/js/dashboard.js"></script>    
+    <script src="{{ asset('template/backend') }}/dist/js/dashboard.js"></script>
     <script src="{{ asset('template/backend') }}/dist/js/sidebarmenu.js"></script>
     <script src="{{ asset('template/back') }}/dist/libs/jquery/dist/jquery.min.js"></script>
 
@@ -1116,7 +1117,7 @@
     <script src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/libs/apexcharts/dist/apexcharts.min.js">
     </script>
     <script src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/js/dashboards/dashboard.js"></script>
- @stack('script')
+    @stack('script')
 </body>
 
 </html>

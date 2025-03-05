@@ -1,5 +1,6 @@
 @extends('layout.app')
 @section('content')
+<x-breadcrumb></x-breadcrumb>
     <div class="col-lg-12 d-flex align-items-stretch">
 
         <div class="card w-100">
@@ -33,7 +34,7 @@
                             </div>
                         </div>
                         <div class="col-6 d-flex align-items-center justify-content-center border-dashed border-dark-subtle"
-                            id="priview">
+                            id="preview">
                             <div class="">Image preview here</div>
                         </div>
                     </div>
@@ -42,7 +43,7 @@
                     <div class="action-form">
                         <div class="text-end">
                             <button type="submit" class="btn btn-info px-4 waves-effect waves-light">
-                                <i class="ti ti-device-floppy"></i> Save
+                                <i class="ti ti-plus"></i> Create
                             </button>
                             <a href="/galleries" class="btn btn-dark px-4 waves-effect waves-light">
                                 <i class="ti ti-xbox-x"></i> Cancel
@@ -56,7 +57,7 @@
     @push('script')
         <script>
             document.getElementById('image').addEventListener('change', function(event) {
-                let preview = document.getElementById('priview');
+                let preview = document.getElementById('preview');
                 preview.classList.remove('border-dashed');
                 let file = event.target.files[0];
 

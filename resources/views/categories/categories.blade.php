@@ -7,10 +7,10 @@
         <div class="card">
             <div class="card-body">
                 <div class="mb-2">
-                    <div class="d-flex justify-content-between align-content-center">
-                        <h5 class="mb-0">Categories</h5>
+                    <div class="d-flex align-items-end flex-column">
                         <a href="/categories/create"><button class="btn btn-primary"> <i class="ti ti-plus "></i>
-                                Create</button> </a>
+                                Create</button>
+                        </a>
                     </div>
                     <div class="table-responsive m-t-40">
                         <table id="config-table" class="table table-bordered no-wrap">

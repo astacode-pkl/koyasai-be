@@ -26,7 +26,7 @@
                     <div class="action-form">
                         <div class="text-end">
                             <button type="submit" class="btn btn-primary px-4 waves-effect waves-light">
-                                <i class="ti ti-plus"></i> Add
+                                <i class="ti ti-plus"></i> Create
                             </button>
                             <a href="/categories" class="btn btn-dark px-4 waves-effect waves-light">
                                 <i class="ti ti-xbox-x"></i> Cancel

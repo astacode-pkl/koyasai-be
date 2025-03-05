@@ -13,14 +13,14 @@ class News extends Model
     use LogsActivity;
 
     protected $guarded = ['id'];
+    protected $table = 'news';
 
     public function getActivitylogOptions(): LogOptions
     {
-        return LogOptions::defaults()->setDescriptionForEvent(fn(string $eventName) => "News {$eventName}")->logUnguarded();
+        return LogOptions::defaults()->logUnguarded();
     }
     public function tapActivity(Activity $activity, string $eventName)
     {
-        $activity->causer_id = Auth::user()->id;
         $activity->causer_name = Auth::user()->name;
     }
     public function images()

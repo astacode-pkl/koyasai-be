@@ -5,15 +5,15 @@
 
     <section class="datatables">
         <!-- ---------------
-                                start DataTable
-                                ---------------- -->
+                                            start DataTable
+                                            ---------------- -->
         <div class="card">
             <div class="card-body">
 
                 <div class="mb-2">
-                    <div class="d-flex justify-content-between align-content-center">
-                        <h5 class="mb-0 ">Embeds</h5>
-                        <a href="/embeds/create"><button class="btn btn-primary"> <i class="ti ti-plus "></i> Create</button>
+                    <div class="d-flex align-items-end flex-column">
+                        <a href="/embeds/create"><button class="btn btn-primary"> <i class="ti ti-plus "></i>
+                                Create</button>
                         </a>
                     </div>
                     <div class="table-responsive m-t-40">
@@ -22,7 +22,7 @@
                                 <!-- start row -->
                                 <tr>
                                     <th>No</th>
-                                    <th>link</th>
+                                    <th>Link</th>
                                     <th>Action</th>
                                 </tr>
                                 <!-- end row -->
@@ -32,16 +32,19 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $embed->link }}</td>
-                                        <td><a href="/embeds/{{ $embed->id }}/edit"
-                                                class="btn btn-warning  px-4 waves-effect waves-light">
-                                                <i class="ti ti-edit "></i> Edit
+                                        <td class="text-center button-td">
+
+                                            <a href="/embeds/{{ Crypt::encryptString($embed->id) }}/edit"
+                                                class="btn border btn-sm waves-effect waves-light">
+                                                <i class="ti ti-edit "></i>
                                             </a>
                                             </button>
-                                            <form action="/embeds/{{ $embed->id }}" method="POST" class="d-inline">
+                                            <form action="/embeds/{{ Crypt::encryptString($embed->id) }}" method="POST"
+                                                class="d-inline ">
                                                 @method('delete')
                                                 @csrf
-                                                <button type="submit" class="btn btn-danger px-4 waves-effect waves-light">
-                                                    <i class="ti ti-trash "></i> Delete
+                                                <button type="submit" class="btn border btn-sm waves-effect waves-light">
+                                                    <i class="ti ti-trash "></i>
                                                 </button>
                                             </form>
                                         </td>
@@ -54,8 +57,8 @@
                 </div>
             </div>
             <!-- ----------------
-                                end DataTable
-                                 ---------------- -->
+                                            end DataTable
+                                             ---------------- -->
     </section>
     @push('script')
         <!-- datatable -->
@@ -68,6 +71,10 @@
         <!-- --------------------------------------------------- -->
         <link rel="stylesheet"
             href="{{ asset('template/backend') }}/dist/libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css">
-          
-   @endpush
+        <style>
+            .button-td {
+                white-space: nowrap
+            }
+        </style>
+    @endpush
 @endsection

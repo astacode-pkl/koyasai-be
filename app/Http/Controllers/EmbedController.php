@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Embed;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 
 class EmbedController extends Controller
 {
@@ -12,8 +13,8 @@ class EmbedController extends Controller
      */
     public function index()
     {
-        $embeds = Embed::latest()->get();
-        return view('embeds.embeds',compact('embeds'));
+        $embeds = Embed::select(['link','id'])->latest()->get();
+        return view('embeds.embeds', compact('embeds'));
     }
 
     /**
@@ -22,7 +23,6 @@ class EmbedController extends Controller
     public function create()
     {
         return view('embeds.create');
-        
     }
 
     /**
@@ -36,7 +36,7 @@ class EmbedController extends Controller
         $table = new Embed;
         $table->link = $request->link;
         $table->save();
-        return redirect('/embeds')->with('success','Embed created successfully!!');
+        return redirect('/embeds')->with('success', 'Embed created successfully!!');
     }
 
     /**
@@ -50,35 +50,36 @@ class EmbedController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Embed $embed)
+    public function edit(string $id)
     {
-        
-        $embed =  Embed::find($embed->id);
-        return view('embeds.edit',compact('embed'));
+        $id = Crypt::decryptString($id);
+        $embed =  Embed::select(['id','link'])->find($id);
+        return view('embeds.edit', compact('embed'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Embed $embed)
+    public function update(Request $request, string $id)
     {
         $validated = $request->validate([
             'link' => 'required'
         ]);
-        $table = Embed::find($embed->id);
+        $id = Crypt::decryptString($id);
+        $table = Embed::find($id);
         $table->link = $request->link;
         $table->update();
-        return redirect('/embeds')->with('success','Embed updated successfully!!');
+        return redirect('/embeds')->with('success', 'Embed updated successfully!!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Embed $embed)
+    public function destroy(string $id)
     {
-        
-        $embed =  Embed::find($embed->id);
+        $id = Crypt::decryptString($id);
+        $embed = Embed::find($id);
         $embed->delete();
-        return redirect()->back()->with('success','Embed updated successfully!!');
+        return redirect()->back()->with('success', 'Embed updated successfully!!');
     }
 }

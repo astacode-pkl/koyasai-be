@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Models\Activity;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Catalog extends Model
 {
@@ -25,5 +26,9 @@ class Catalog extends Model
     public function images()
     {
         return fn() => $url = asset('images/catalogs/' . $this->image);
+    }
+    public function categories(): BelongsTo
+    {
+        return $this->belongsTo(Category::class, 'category_id');
     }
 }
