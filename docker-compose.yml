@@ -1,0 +1,128 @@
+version: '3.8'
+
+services:
+  # Dev Environment
+  app_dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: laravel_app_dev
+    restart: unless-stopped
+    volumes:
+      - ./dev:/var/www/html
+    environment:
+      - DB_HOST=mysql_dev
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_USERNAME=root
+      - DB_PASSWORD=${DB_PASSWORD}
+    depends_on:
+      - mysql_dev
+
+  webserver_dev:
+    image: nginx:alpine
+    container_name: laravel_webserver_dev
+    restart: unless-stopped
+    ports:
+      - "81:80"  
+    volumes:
+      - ./dev:/var/www/html
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - app_dev
+
+  mysql_dev:
+    image: mysql:8.0
+    container_name: laravel_mysql_dev
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: root
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - dbdata_dev:/var/lib/mysql
+
+  # Stable Environment
+  app_stable:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: laravel_app_stable
+    restart: unless-stopped
+    volumes:
+      - ./stable:/var/www/html
+    environment:
+      - DB_HOST=mysql_stable
+      - DB_DATABASE=${DB_DATABASE_STABLE}
+      - DB_USERNAME=root
+      - DB_PASSWORD=${DB_PASSWORD}
+    depends_on:
+      - mysql_stable
+
+  webserver_stable:
+    image: nginx:alpine
+    container_name: laravel_webserver_stable
+    restart: unless-stopped
+    ports:
+      - "82:80" 
+    volumes:
+      - ./stable:/var/www/html
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - app_stable
+
+  mysql_stable:
+    image: mysql:8.0
+    container_name: laravel_mysql_stable
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE_STABLE}
+      MYSQL_USER: root
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - dbdata_stable:/var/lib/mysql
+
+  # Prod Environment
+  app_prod:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: laravel_app_prod
+    restart: unless-stopped
+    volumes:
+      - ./prod:/var/www/html
+    environment:
+      - DB_HOST=mysql_prod
+      - DB_DATABASE=${DB_DATABASE_PROD}
+      - DB_USERNAME=root
+      - DB_PASSWORD=${DB_PASSWORD}
+    depends_on:
+      - mysql_prod
+
+  webserver_prod:
+    image: nginx:alpine
+    container_name: laravel_webserver_prod
+    restart: unless-stopped
+    ports:
+      - "83:80"  # Port untuk prod
+    volumes:
+      - ./prod:/var/www/html
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - app_prod
+
+  mysql_prod:
+    image: mysql:8.0
+    container_name: laravel_mysql_prod
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: ${DB_DATABASE_PROD}
+      MYSQL_USER: root
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - dbdata_prod:/var/lib/mysql
+
+volumes:
+  dbdata_dev:
+  dbdata_stable:
+  dbdata_prod:
