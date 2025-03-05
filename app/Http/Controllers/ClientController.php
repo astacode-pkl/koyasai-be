@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\client;
+use App\Models\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 
 class ClientController extends Controller
 {
@@ -12,8 +13,8 @@ class ClientController extends Controller
      */
     public function index()
     {
-        $clients = client::where('images')->get();
-        return view('client.index', compact('clients'));
+        $clients = Client::select(['id','image'])->latest()->get();
+        return view('clients.client',compact('clients'));
     }
 
     /**
@@ -21,7 +22,7 @@ class ClientController extends Controller
      */
     public function create()
     {
-        //
+        return view('clients.create');
     }
 
     /**
@@ -29,13 +30,18 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048'
+        ]);
+        $image = $this->uploadImage('images/clients/',$request->file('image'));
+        Client::create(['image' => $image]);
+        return redirect('/clients')->with('success','Client created successfully!!');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(client $client)
+    public function show(Client $client)
     {
         //
     }
@@ -43,24 +49,37 @@ class ClientController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(client $client)
+    public function edit(string $id)
     {
-        //
+        $id = Crypt::decryptString($id);
+        $client = Client::select(['id','image'])->find($id);
+        return view('clients.edit',compact('client'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, client $client)
+    public function update(Request $request, string $id)
     {
-        //
+        $validated = $request->validate([
+            'image' => 'image|mimes:jpeg,png,jpg|max:2048'
+        ]);
+        $id = Crypt::decryptString($id);
+        $table = Client::find($id);
+        $image = $this->updateImage('images/clients/',$table->image,$request->file('image'));
+        $table->update(['image' => $image]);
+        return redirect('/clients')->with('success','Client created successfully!!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(client $client)
+    public function destroy(String $id)
     {
-        //
+        $id = Crypt::decryptString($id);
+        $client = Client::find($id);
+        $this->destroyImage('images/clients/',$client->image);
+        $client->delete();
+        return redirect('/clients')->with('success','Client deleted successfully!!');
     }
 }

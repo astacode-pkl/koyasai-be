@@ -2,14 +2,14 @@
 @section('content')
     <div class="card overflow-hidden chat-application">
         <div class="d-flex align-items-center gap-3 m-3 d-lg-none">
-           <h1 class="text-center">Inbox</h1>
+           <h1 class="text-center">Inboxes</h1>
         </div>
         <div class="d-flex w-100">
             <div class="d-flex w-100">
                 <div class="min-width-340">
                     <div class="border-end user-chat-box h-100">
                         <div class="px-4 pt-9 pb-6 d-none d-lg-block">
-                            <form class="position-relative" method="post" action="/inbox/search">
+                            <form class="position-relative" method="post" action="/inboxes/search">
                                 @csrf
                                 <input type="text" name="search" class="form-control search-chat py-2 ps-5"
                                     id="text-srh" placeholder="Search">
@@ -30,11 +30,10 @@
                                                 aria-label="scrollable content"
                                                 style="height: 100%; overflow: hidden scroll;">
                                                 <div class="simplebar-content" style="padding: 0px;">
-                                                    {{-- {{dd($contacts)}} --}}
                                                     @if (count($contacts) > 0)
                                                         @foreach ($contacts as $contact)
                                                             <li onclick="">
-                                                                <a href="/inbox/{{ Crypt::encryptString($contact['id']) }}"
+                                                                <a href="/inboxes/{{ Crypt::encryptString($contact['id']) }}"
                                                                     class="px-4 py-3 bg-hover-light-black d-flex align-items-start chat-user {{ $contact['status'] == 'unread' ? 'bg-light' : '' }} border-bottom"
                                                                     id="chat_user_1" data-user-id="1">
                                                                     <div class="position-relative w-100 ms-2">
@@ -104,7 +103,7 @@
                                         <li class="position-relative" data-bs-toggle="tooltip" data-bs-placement="top"
                                             data-bs-title="Delete">
                                             <a class="text-dark px-2 fs-5 bg-hover-primary nav-icon-hover position-relative z-index-5"
-                                                href="{{ Request::is('inbox/*') && isset($contactById) ? 'delete/'.Crypt::encryptString($contactById['id']) : '#' }}" disabled>
+                                                href="{{ Request::is('inboxes/*') && isset($contactById) ? 'delete/'.Crypt::encryptString($contactById['id']) : '#' }}" disabled>
                                                 <i class="ti ti-trash"></i>
                                             </a>
                                         </li>
@@ -113,7 +112,7 @@
                                 </div>
                                 <div class="w-100 p-3 position-relative"
                                     style="height: calc(100vh - 400px); overflow: auto;">
-                                    @if (Request::is('inbox/*') && isset($contactById))
+                                    @if (Request::is('inboxes/*') && isset($contactById))
                                         <div class="row">
                                             <div class="col">
                                                 <h2>{{ $contactById['subject'] }}</h2>
@@ -160,7 +159,7 @@
 
                 </div>
                 <div class="px-3">
-                    <form class="position-relative" method="post" action="/inbox/search">
+                    <form class="position-relative" method="post" action="/inboxes/search">
                         @csrf
                         <input type="text" name="search" class="form-control search-chat py-2 ps-5"
                             id="text-srh" placeholder="Search">
@@ -181,7 +180,7 @@
                                         @if (count($contacts) > 0)
                                             @foreach ($contacts as $contact)
                                                 <li>
-                                                    <a href="/inbox/{{ Crypt::encryptString($contact['id']) }}"
+                                                    <a href="/inboxes/{{ Crypt::encryptString($contact['id']) }}"
                                                         class="px-4 py-3 bg-hover-light-black d-flex align-items-start chat-user {{ $contact['status'] == 'unread' ? 'bg-light' : '' }} border-bottom"
                                                         id="chat_user_1" data-user-id="1">
                                                         <div class="position-relative w-100 ms-2">

@@ -221,8 +221,8 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link @if (request()->is('loghistories')) active @endif"
-                                href="/loghistories" aria-expanded="false">
+                            <a class="sidebar-link @if (request()->is('log-histories')) active @endif"
+                                href="/log-histories" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-history"></i>
                                 </span>
@@ -279,6 +279,18 @@
                                     <i class="ti ti-search"></i>
                                 </a>
                             </li>
+                             <li class="nav-item nav-icon-hover-bg rounded-circle d-none d-lg-flex position-relative">
+                                <a class="nav-link" href="/admin/inbox">
+                                    <i class="ti ti-inbox position-relative"></i>
+                                </a>
+                                @if (Session::get('countUnread') > 0)
+                                    <span
+                                        class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary"
+                                        style="font-size: 0.6rem ;">
+                                        {{ Session::get('countUnread') }}
+                                    </span>
+                                @endif
+                            </li>
                         </ul>
 
                         <div class="d-block d-lg-none py-4">
@@ -329,7 +341,7 @@
                                                 @if ($contact->status == 'unread')
                                                 <a href="/inbox/{{ Crypt::encryptString($contact['id']) }}" class="py-6 px-7 d-flex align-items-center dropdown-item">
                                                     <span class="me-3">
-                                                        <img loading="lazy" src="{{asset('images/contact/' . $contact->avatar)}}"
+                                                        <img loading="lazy" src="{{asset('images/contacts/' . $contact->avatar)}}"
                                                             alt="avatar" class="rounded-circle" width="48" height="48" />
                                                     </span>
                                                     <div class="w-100">
@@ -342,7 +354,7 @@
                                             @endforeach
                                             
                                             <div class="py-6 px-7 mb-1">
-                                                <a href="/contact">                                                    
+                                                <a href="/inboxes">                                                    
                                                     <button class="btn btn-outline-primary w-100" >See All Message</button>
                                                 </a>
                                             </div>
@@ -500,7 +512,7 @@
                                                 <a href="javascript:void(0)"
                                                     class="py-6 px-7 d-flex align-items-center dropdown-item">
                                                     <span class="me-3">
-                                                        <img loading="lazy" src="{{asset('images/contact/' . $contact->avatar)}}"
+                                                        <img loading="lazy" src="{{asset('images/contacts/' . $contact->avatar)}}"
                                                             alt="user" class="rounded-circle" width="48"
                                                             height="48" />
                                                     </span>
@@ -980,7 +992,7 @@
         </div>
     </div>
     <div class="dark-transparent sidebartoggler"></div>
-    {{-- <script src="{{ asset('template/backend') }}/dist/js/vendor.min.js"></script> --}}
+    <script src="{{ asset('template/backend') }}/dist/js/vendor.min.js"></script>
     <!-- Import Js Files -->
     <script src="{{ asset('template/backend') }}/dist/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('template/backend') }}/dist/libs/simplebar/dist/simplebar.min.js"></script>
@@ -990,7 +1002,7 @@
     <script src="{{ asset('template/backend') }}/dist/js/theme/sidebarmenu.js"></script>
     <script src="{{ asset('template/backend') }}/dist/js/dashboard.js"></script>
     <script src="{{ asset('template/backend') }}/dist/js/sidebarmenu.js"></script>
-    <script src="{{ asset('template/back') }}/dist/libs/jquery/dist/jquery.min.js"></script>
+    <script src="{{ asset('template/backend') }}/dist/libs/jquery/dist/jquery.min.js"></script>
 
     <!-- solar icons -->
     <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>

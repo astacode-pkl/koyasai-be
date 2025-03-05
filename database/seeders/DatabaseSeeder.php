@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
         User::create([
             'name' => 'Koyasai',
             'email' => 'koyasai@mail.com',
-            'password' => bcrypt('123'),
+            'password' => bcrypt('12345678'),
         ]);
         CompanyProfile::factory()->create([
             'logo_type' => 'logo_type.webp',

@@ -14,8 +14,8 @@ class LogHistoryController extends Controller
      */
     public function index()
     {
-        $loghistories = Activity::all();
-        return view('loghistory', compact('loghistories'));
+        $loghistories = Activity::select(['id','causer_name','event','subject_type','created_at','properties'])->latest()->get();
+        return view('loghistories', compact('loghistories'));
     }
 
     /**

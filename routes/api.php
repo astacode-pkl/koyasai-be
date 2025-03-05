@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\EmbedController;
 use App\Http\Controllers\Api\GalleryController;
 use App\Http\Controllers\Api\HeroController;
 use App\Http\Controllers\Api\NewsController;
+use App\Http\Controllers\Api\SearchController;
 
 use App\Http\Controllers\Api\IndexController;
 Route::apiResource('/doc', IndexController::class);
@@ -30,3 +31,4 @@ Route::apiResource('/hero', HeroController::class);
 
 Route::apiResource('/news', NewsController::class);
 
+Route::get('/search', [SearchController::class,'search']);

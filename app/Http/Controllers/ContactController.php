@@ -70,7 +70,7 @@ class ContactController extends Controller
     {
         $keyword = $request->search;
         $contacts = Contact::where('name', 'like', '%' . $keyword . '%')
-            ->orWhere('phone_number', 'like', '%' . $keyword . '%')
+            ->orWhere('subject', 'like', '%' . $keyword . '%')
             ->orWhere('email', 'like', '%' . $keyword . '%')
             ->orWhere('message', 'like', '%' . $keyword . '%')
             ->get();
@@ -113,6 +113,6 @@ class ContactController extends Controller
         }
         
         
-        return redirect('inbox')->with('success', 'Data deleted successfully!!');
+        return redirect()->back()->with('success', 'Data deleted successfully!!');
     }
 }
