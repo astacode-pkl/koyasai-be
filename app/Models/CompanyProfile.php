@@ -17,6 +17,6 @@ class CompanyProfile extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->logUnguarded()->setDescriptionForEvent(fn(string $eventName) => auth()->user()->name . " {$eventName} Company Profile");
+            ->logUnguarded()->setDescriptionForEvent(fn(string $eventName) => optional(auth()->user())->name . " {$eventName} Company Profile");
     }
 }

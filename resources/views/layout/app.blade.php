@@ -22,18 +22,20 @@
 </head>
 
 <body>
+    <!-- start welcome message -->
     <div class="toast toast-onload align-items-center text-bg-primary border-0" role="alert" aria-live="assertive"
         aria-atomic="true">
         <div class="toast-body hstack align-items-start gap-6">
             <i class="ti ti-alert-circle fs-6"></i>
             <div>
-                <h5 class="text-white fs-3 mb-1">Welcome to Modernize</h5>
+                <h5 class="text-white fs-3 mb-1">Welcome to Koyasai</h5>
                 <h6 class="text-white fs-2 mb-0">Easy to costomize the Template!!!</h6>
             </div>
             <button type="button" class="btn-close btn-close-white fs-2 m-0 ms-auto shadow-none"
                 data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
     </div>
+    <!-- end welcome message -->
     <!-- Preloader -->
     <div class="preloader">
         <img src="{{ asset('images/companyprofile/' . $companyProfile->logo_mark) }}" alt="loader"
@@ -48,10 +50,8 @@
                 <!-- ---------------------------------- -->
                 <div class="brand-logo d-flex align-items-center justify-content-between">
                     <a href="/" class="text-nowrap logo-img">
-                        <img src="{{ asset('images/companyprofile/' . $companyProfile->logo_mark) }}" width="10%"
-                            alt="Logo Mark" />
-                        <img src="{{ asset('images/companyprofile/' . $companyProfile->logo_type) }}" width="10%"
-                            alt="Logo Type" />
+                        <img src="{{ asset('images/companyprofile/'.$companyProfile->logo_mark) }}" width="20%" alt="Logo Mark" />
+                        <img src="{{ asset('images/companyprofile/'.$companyProfile->logo_type) }}" width="35%" alt="Logo Type" />
                     </a>
                     <a href="javascript:void(0)"
                         class="sidebartoggler ms-auto text-decoration-none fs-5 d-block d-xl-none">
@@ -221,8 +221,8 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link @if (request()->is('log-histories')) active @endif"
-                                href="/log-histories" aria-expanded="false">
+                            <a class="sidebar-link @if (request()->is('loghistories')) active @endif"
+                                href="/loghistories" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-history"></i>
                                 </span>
@@ -235,7 +235,7 @@
                 <div class="fixed-profile p-3 mx-4 mb-2 bg-secondary-subtle rounded mt-3">
                     <div class="hstack gap-3">
                         <div class="john-img">
-                            <img src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-1.jpg"
+                            <img loading="lazy" src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-1.jpg"
                                 class="rounded-circle" width="40" height="40" alt="modernize-img" />
                         </div>
                         <div class="john-title">
@@ -309,103 +309,42 @@
                                     <!-- start notification Dropdown -->
                                     <!-- ------------------------------- -->
                                     <li class="nav-item nav-icon-hover-bg rounded-circle dropdown">
-                                        <a class="nav-link position-relative" href="javascript:void(0)"
-                                            id="drop2" aria-expanded="false">
-                                            <i class="ti ti-bell-ringing"></i>
-                                            <div class="notification bg-primary rounded-circle"></div>
-                                        </a>
-                                        <div class="dropdown-menu content-dd dropdown-menu-end dropdown-menu-animate-up"
-                                            aria-labelledby="drop2">
+                                        @if($contacts->where('status', 'unread')->count())
+                                            <a class="nav-link position-relative" href="javascript:void(0)" id="drop2" aria-expanded="false">
+                                                <i class="ti ti-bell-ringing"></i>
+                                                <div class="notification bg-primary rounded-circle"></div>
+                                            </a>
+                                        @else
+                                            <a class="nav-link position-relative" href="javascript:void(0)" id="drop2" aria-expanded="false">
+                                                <i class="ti ti-bell-ringing"></i>
+                                            </a>
+                                        @endif
+                                        
+                                        <div class="dropdown-menu content-dd dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
                                             <div class="d-flex align-items-center justify-content-between py-3 px-7">
                                                 <h5 class="mb-0 fs-5 fw-semibold">Notifications</h5>
-                                                <span class="badge text-bg-primary rounded-4 px-3 py-1 lh-sm">5
-                                                    new</span>
+                                                <span class="badge text-bg-primary rounded-4 px-3 py-1 lh-sm">{{ $contacts->where('status', 'unread')->count() }}</span>
                                             </div>
-                                            <div class="message-body" data-simplebar>
-                                                <a href="javascript:void(0)"
-                                                    class="py-6 px-7 d-flex align-items-center dropdown-item">
+                                            @foreach ($contacts->take(5) as $contact)
+                                                @if ($contact->status == 'unread')
+                                                <a href="/inbox/{{ Crypt::encryptString($contact['id']) }}" class="py-6 px-7 d-flex align-items-center dropdown-item">
                                                     <span class="me-3">
-                                                        <img src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-2.jpg"
-                                                            alt="user" class="rounded-circle" width="48"
-                                                            height="48" />
+                                                        <img loading="lazy" src="{{asset('images/contact/' . $contact->avatar)}}"
+                                                            alt="avatar" class="rounded-circle" width="48" height="48" />
                                                     </span>
                                                     <div class="w-100">
-                                                        <h6 class="mb-1 fw-semibold lh-base">Roman Joined the Team!
-                                                        </h6>
-                                                        <span class="fs-2 d-block text-body-secondary">Congratulate
-                                                            him</span>
+                                                        <h6 class="mb-1 fw-semibold lh-base">{{ $contact->name }}</h6>
+                                                        <span class="fs-2 d-block text-body-secondary">{{ $contact->message }}</span>
                                                     </div>
                                                 </a>
-                                                <a href="javascript:void(0)"
-                                                    class="py-6 px-7 d-flex align-items-center dropdown-item">
-                                                    <span class="me-3">
-                                                        <img src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-3.jpg"
-                                                            alt="user" class="rounded-circle" width="48"
-                                                            height="48" />
-                                                    </span>
-                                                    <div class="w-100">
-                                                        <h6 class="mb-1 fw-semibold lh-base">New message</h6>
-                                                        <span class="fs-2 d-block text-body-secondary">Salma sent you
-                                                            new message</span>
-                                                    </div>
-                                                </a>
-                                                <a href="javascript:void(0)"
-                                                    class="py-6 px-7 d-flex align-items-center dropdown-item">
-                                                    <span class="me-3">
-                                                        <img src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-4.jpg"
-                                                            alt="user" class="rounded-circle" width="48"
-                                                            height="48" />
-                                                    </span>
-                                                    <div class="w-100">
-                                                        <h6 class="mb-1 fw-semibold lh-base">Bianca sent payment</h6>
-                                                        <span class="fs-2 d-block text-body-secondary">Check your
-                                                            earnings</span>
-                                                    </div>
-                                                </a>
-                                                <a href="javascript:void(0)"
-                                                    class="py-6 px-7 d-flex align-items-center dropdown-item">
-                                                    <span class="me-3">
-                                                        <img src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-5.jpg"
-                                                            alt="user" class="rounded-circle" width="48"
-                                                            height="48" />
-                                                    </span>
-                                                    <div class="w-100">
-                                                        <h6 class="mb-1 fw-semibold lh-base">Jolly completed tasks</h6>
-                                                        <span class="fs-2 d-block text-body-secondary">Assign her new
-                                                            tasks</span>
-                                                    </div>
-                                                </a>
-                                                <a href="javascript:void(0)"
-                                                    class="py-6 px-7 d-flex align-items-center dropdown-item">
-                                                    <span class="me-3">
-                                                        <img src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-6.jpg"
-                                                            alt="user" class="rounded-circle" width="48"
-                                                            height="48" />
-                                                    </span>
-                                                    <div class="w-100">
-                                                        <h6 class="mb-1 fw-semibold lh-base">John received payment</h6>
-                                                        <span class="fs-2 d-block text-body-secondary">$230 deducted
-                                                            from account</span>
-                                                    </div>
-                                                </a>
-                                                <a href="javascript:void(0)"
-                                                    class="py-6 px-7 d-flex align-items-center dropdown-item">
-                                                    <span class="me-3">
-                                                        <img src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-7.jpg"
-                                                            alt="user" class="rounded-circle" width="48"
-                                                            height="48" />
-                                                    </span>
-                                                    <div class="w-100">
-                                                        <h6 class="mb-1 fw-semibold lh-base">Roman Joined the Team!
-                                                        </h6>
-                                                        <span class="fs-2 d-block text-body-secondary">Congratulate
-                                                            him</span>
-                                                    </div>
-                                                </a>
-                                            </div>
+                                                @else
+                                                @endif
+                                            @endforeach
+                                            
                                             <div class="py-6 px-7 mb-1">
-                                                <button class="btn btn-outline-primary w-100">See All
-                                                    Notifications</button>
+                                                <a href="/contact">                                                    
+                                                    <button class="btn btn-outline-primary w-100" >See All Message</button>
+                                                </a>
                                             </div>
                                         </div>
                                     </li>
@@ -435,7 +374,7 @@
                                                 </div>
                                                 <div class="d-flex align-items-center py-9 mx-7 border-bottom">
                                                     {{-- <img src="{{ asset('images/companyprofile/' . $companyProfile->logo) }}"class="rounded-circle img-fluid w-30" alt="logo" /> --}}
-                                                    <img src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-1.jpg"class="rounded-circle img-fluid w-30"
+                                                    <img loading="lazy" src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-1.jpg"class="rounded-circle img-fluid w-30"
                                                         alt="logo" />
                                                     <div class="ms-3">
                                                         <h5 class="mb-1 fs-3">{{ auth()->user()->name }}</h5>
@@ -535,11 +474,20 @@
                                     <!-- start notification Dropdown -->
                                     <!-- ------------------------------- -->
                                     <li class="nav-item nav-icon-hover-bg rounded-circle dropdown">
+                                        @if ($contacts->where('is_read', false)->count())
                                         <a class="nav-link position-relative" href="javascript:void(0)"
                                             id="drop2" aria-expanded="false">
                                             <i class="ti ti-bell-ringing"></i>
                                             <div class="notification bg-primary rounded-circle"></div>
                                         </a>
+                                        @else
+                                        <a class="nav-link position-relative" href="javascript:void(0)"
+                                            id="drop2" aria-expanded="false">
+                                            <i class="ti ti-bell-ringing"></i>
+                                            <div class=" bg-primary rounded-circle"></div>
+                                        </a>
+                                        @endif
+                                        
                                         <div class="dropdown-menu content-dd dropdown-menu-end dropdown-menu-animate-up"
                                             aria-labelledby="drop2">
                                             <div class="d-flex align-items-center justify-content-between py-3 px-7">
@@ -548,86 +496,20 @@
                                                     new</span>
                                             </div>
                                             <div class="message-body" data-simplebar>
+                                                @foreach ($contacts as $contact)
                                                 <a href="javascript:void(0)"
                                                     class="py-6 px-7 d-flex align-items-center dropdown-item">
                                                     <span class="me-3">
-                                                        <img src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-2.jpg"
+                                                        <img loading="lazy" src="{{asset('images/contact/' . $contact->avatar)}}"
                                                             alt="user" class="rounded-circle" width="48"
                                                             height="48" />
                                                     </span>
                                                     <div class="w-100">
-                                                        <h6 class="mb-1 fw-semibold lh-base">Roman Joined the Team!
-                                                        </h6>
-                                                        <span class="fs-2 d-block text-body-secondary">Congratulate
-                                                            him</span>
+                                                        <h6 class="mb-1 fw-semibold lh-base">{{ $contact->name }} </h6>
+                                                        <span class="fs-2 d-block text-body-secondary">{{ $contact->message }}</span>
                                                     </div>
                                                 </a>
-                                                <a href="javascript:void(0)"
-                                                    class="py-6 px-7 d-flex align-items-center dropdown-item">
-                                                    <span class="me-3">
-                                                        <img src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-3.jpg"
-                                                            alt="user" class="rounded-circle" width="48"
-                                                            height="48" />
-                                                    </span>
-                                                    <div class="w-100">
-                                                        <h6 class="mb-1 fw-semibold lh-base">New message</h6>
-                                                        <span class="fs-2 d-block text-body-secondary">Salma sent you
-                                                            new message</span>
-                                                    </div>
-                                                </a>
-                                                <a href="javascript:void(0)"
-                                                    class="py-6 px-7 d-flex align-items-center dropdown-item">
-                                                    <span class="me-3">
-                                                        <img src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-4.jpg"
-                                                            alt="user" class="rounded-circle" width="48"
-                                                            height="48" />
-                                                    </span>
-                                                    <div class="w-100">
-                                                        <h6 class="mb-1 fw-semibold lh-base">Bianca sent payment</h6>
-                                                        <span class="fs-2 d-block text-body-secondary">Check your
-                                                            earnings</span>
-                                                    </div>
-                                                </a>
-                                                <a href="javascript:void(0)"
-                                                    class="py-6 px-7 d-flex align-items-center dropdown-item">
-                                                    <span class="me-3">
-                                                        <img src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-5.jpg"
-                                                            alt="user" class="rounded-circle" width="48"
-                                                            height="48" />
-                                                    </span>
-                                                    <div class="w-100">
-                                                        <h6 class="mb-1 fw-semibold lh-base">Jolly completed tasks</h6>
-                                                        <span class="fs-2 d-block text-body-secondary">Assign her new
-                                                            tasks</span>
-                                                    </div>
-                                                </a>
-                                                <a href="javascript:void(0)"
-                                                    class="py-6 px-7 d-flex align-items-center dropdown-item">
-                                                    <span class="me-3">
-                                                        <img src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-6.jpg"
-                                                            alt="user" class="rounded-circle" width="48"
-                                                            height="48" />
-                                                    </span>
-                                                    <div class="w-100">
-                                                        <h6 class="mb-1 fw-semibold lh-base">John received payment</h6>
-                                                        <span class="fs-2 d-block text-body-secondary">$230 deducted
-                                                            from account</span>
-                                                    </div>
-                                                </a>
-                                                <a href="javascript:void(0)"
-                                                    class="py-6 px-7 d-flex align-items-center dropdown-item">
-                                                    <span class="me-3">
-                                                        <img src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-7.jpg"
-                                                            alt="user" class="rounded-circle" width="48"
-                                                            height="48" />
-                                                    </span>
-                                                    <div class="w-100">
-                                                        <h6 class="mb-1 fw-semibold lh-base">Roman Joined the Team!
-                                                        </h6>
-                                                        <span class="fs-2 d-block text-body-secondary">Congratulate
-                                                            him</span>
-                                                    </div>
-                                                </a>
+                                                @endforeach
                                             </div>
                                             <div class="py-6 px-7 mb-1">
                                                 <button class="btn btn-outline-primary w-100">See All
@@ -647,7 +529,7 @@
                                             aria-expanded="false">
                                             <div class="d-flex align-items-center">
                                                 <div class="user-profile-img">
-                                                    <img src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-1.jpg"
+                                                    <img loading="lazy" src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-1.jpg"
                                                         class="rounded-circle" width="35" height="35"
                                                         alt="modernize-img" />
                                                 </div>
@@ -661,7 +543,7 @@
                                                 </div>
                                                 <div class="d-flex align-items-center py-9 mx-7 border-bottom">
                                                     {{-- <img src="{{ asset('images/companyprofile/' . $companyProfile->logo) }}"class="rounded-circle img-fluid w-30" alt="logo" /> --}}
-                                                    <img src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-1.jpg"class="rounded-circle img-fluid w-30"
+                                                    <img loading="lazy" src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-1.jpg"class="rounded-circle img-fluid w-30"
                                                         alt="logo" />
                                                     <div class="ms-3">
                                                         <h5 class="mb-1 fs-3">{{ auth()->user()->name }}</h5>
@@ -1098,7 +980,7 @@
         </div>
     </div>
     <div class="dark-transparent sidebartoggler"></div>
-    <script src="{{ asset('template/backend') }}/dist/js/vendor.min.js"></script>
+    {{-- <script src="{{ asset('template/backend') }}/dist/js/vendor.min.js"></script> --}}
     <!-- Import Js Files -->
     <script src="{{ asset('template/backend') }}/dist/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('template/backend') }}/dist/libs/simplebar/dist/simplebar.min.js"></script>
