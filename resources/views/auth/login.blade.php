@@ -55,13 +55,13 @@
                                     <div class="mb-3">
                                         <label for="exampleInputEmail1" class="form-label">Email</label>
                                         <input type="email" name="email" class="form-control"
-                                            id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter your email">
+                                            id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter your email" autocomplete="email">
                                     </div>
                                     <div class="mb-4">
                                         <label for="exampleInputPassword1" class="form-label">Password</label>
                                         <div class="input-group">
                                             <input type="password" name="password" class="form-control"
-                                                id="password" placeholder="Enter your password">
+                                                id="password" placeholder="Enter your password" autocomplete="current-password">
                                             <span class="input-group-text" onclick="togglePassword()">
                                                 <i class="fa fa-eye" id="togglePassword"></i>
                                             </span>

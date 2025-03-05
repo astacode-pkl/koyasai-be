@@ -21,7 +21,9 @@ class CompanyProfileController extends Controller
             ]);
         } try {
             $companyProfile = $companyProfile->map(function ($profile) {
-                $profile->logo = url('images/companyprofile/' . $profile->logo);
+                $profile->logo = url('https://guiding-gentle-yak.ngrok-free.app/images/companyprofile/' . $profile->logo);
+                $profile->logo_type = url('https://guiding-gentle-yak.ngrok-free.app/images/companyprofile/' . $profile->logo_type);
+                $profile->logo_mark = url('https://guiding-gentle-yak.ngrok-free.app/images/companyprofile/' . $profile->logo_mark);
                 return $profile;
             });
             return response()->json([

@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('embeds', function (blueprint $table)
-        {
+        Schema::create('news', function (Blueprint $table) {
             $table->id();
-            $table->text('instagram');
+            $table->string('title');
+            $table->text('image');
+            $table->text('description');
             $table->timestamps();
         });
     }
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExist('embed');
+        Schema::dropIfExists('news');
     }
 };

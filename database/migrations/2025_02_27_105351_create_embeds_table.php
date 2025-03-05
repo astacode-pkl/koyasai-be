@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('clients', function (blueprint $table)
-        {
+        Schema::create('embeds', function (Blueprint $table) {
             $table->id();
-            $table->text('images');
+            $table->text('link');
             $table->timestamps();
         });
     }
@@ -24,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('clients');
+        Schema::dropIfExists('embeds');
     }
 };

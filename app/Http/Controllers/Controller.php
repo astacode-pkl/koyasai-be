@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\ConvertToWebpJob;
+
+
 abstract class Controller
 {
     public function uploadImage($destination,$image){
@@ -14,9 +17,8 @@ abstract class Controller
         if (strpos($imageMimeType, 'image/') === 0) {
             $imageName = date('YmdHis') . '' . str_replace(' ', '', $sha1FileName);
             $image->move($destinationPath, $imageName);
-
             $sourceImagePath = public_path($destinationPath . $imageName);
-            $webpImagePath = $destinationPath . pathinfo($imageName, PATHINFO_FILENAME) . '.webp';
+            $webpImagePath = public_path($destinationPath . pathinfo($imageName, PATHINFO_FILENAME) . '.webp');
 
             $sourceImage = null;
             switch ($imageMimeType) {
@@ -26,22 +28,20 @@ abstract class Controller
                 case 'image/png':
                     $sourceImage = @imagecreatefrompng($sourceImagePath);
                     break;
-                case 'image/jpg':
-                    $sourceImage = @imagecreatefromjpg($sourceImagePath);
-                    break;
                 default:
                     $sourceImage = false;
                     break;
             }
 
             if ($sourceImage !== false) {
-                imagewebp($sourceImage, $webpImagePath);
+                imagewebp($sourceImage, $webpImagePath, 80); // Kompresi 80%
                 imagedestroy($sourceImage);
-                @unlink($sourceImagePath);
-
-                return pathinfo($imageName, PATHINFO_FILENAME) . '.webp';
+                @unlink($sourceImagePath); // Hapus file asli setelah dikonversi
             }
+
+            return pathinfo($imageName, PATHINFO_FILENAME) . '.webp';
         }
+
         return '';
 
     }
@@ -73,7 +73,7 @@ abstract class Controller
             
             //sh1 file name
             $sha1FileName = sha1($image->getClientOriginalName());
-
+            
             $imageMimeType = $image->getMimeType();
 
             if (strpos($imageMimeType, 'image/') === 0) {
@@ -81,7 +81,8 @@ abstract class Controller
                 $image->move($destinationPath, $imageName);
 
                 $sourceImagePath = public_path($destinationPath . $imageName);
-                $webpImagePath = $destinationPath . pathinfo($imageName, PATHINFO_FILENAME) . '.webp';
+                $webpImagePath = public_path($destinationPath . pathinfo($imageName, PATHINFO_FILENAME) . '.webp');
+
                 $sourceImage = null;
                 switch ($imageMimeType) {
                     case 'image/jpeg':
@@ -90,22 +91,18 @@ abstract class Controller
                     case 'image/png':
                         $sourceImage = @imagecreatefrompng($sourceImagePath);
                         break;
-                    case 'image/jpg':                    
-                        $sourceImage = @imagecreatefromjpg($sourceImagePath);
-
-                        break;
                     default:
                         $sourceImage = false;
                         break;
                 }
 
                 if ($sourceImage !== false) {
-                    imagewebp($sourceImage, $webpImagePath);
+                    imagewebp($sourceImage, $webpImagePath, 80); // Kompresi 80%
                     imagedestroy($sourceImage);
-                    @unlink($sourceImagePath);
-
-                    return  pathinfo($imageName, PATHINFO_FILENAME) . '.webp';
+                    @unlink($sourceImagePath); // Hapus file asli setelah dikonversi
                 }
+                return  pathinfo($imageName, PATHINFO_FILENAME) . '.webp';
+                
             }
     }
 }

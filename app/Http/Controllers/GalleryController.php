@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Gallery;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 
 class GalleryController extends Controller
 {
@@ -12,8 +13,8 @@ class GalleryController extends Controller
      */
     public function index()
     {
-        $galleries = Gallery::latest()->get();
-        return view('galleries.galleries',compact('galleries'));
+        $galleries = Gallery::select('id', 'image', 'title')->latest()->get();
+        return view('galleries.galleries', compact('galleries'));
     }
 
     /**
@@ -33,9 +34,9 @@ class GalleryController extends Controller
             'title' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg|max:2048'
         ]);
-        $image = $this->uploadImage('images/galleries/',$request->file('image'));
-        Gallery::create(['title' => $validated['title'],'image' => $image]);
-        return redirect('/galleries')->with('success','Gallery created successfully!!');
+        $image = $this->uploadImage('images/galleries/', $request->file('image'));
+        Gallery::create(['title' => $validated['title'], 'image' => $image]);
+        return redirect('/galleries')->with('success', 'Gallery created successfully!!');
     }
 
     /**
@@ -49,34 +50,38 @@ class GalleryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Gallery $gallery)
+    public function edit(string $id)
     {
-        $gallery = Gallery::find($gallery->id);
-        return view('galleries.edit',compact('gallery'));
+        $id = Crypt::decryptString($id);
+        $gallery = Gallery::select(['id', 'image', 'title'])->find($id);
+        return view('galleries.edit', compact('gallery'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Gallery $gallery)
+    public function update(Request $request, string $id)
     {
         $validated = $request->validate([
             'title' => 'required',
             'image' => 'image|mimes:jpeg,png,jpg|max:2048'
         ]);
-        $table = Gallery::find($gallery->id);
-        $image = $this->updateImage('images/galleries/',$table->image,$request->file('image'));
-        $table->update(['title' => $validated['title'],'image' => $image]);
-        return redirect('/galleries')->with('success','Gallery created successfully!!');
+        $id = Crypt::decryptString($id);
+        $table = Gallery::find($id);
+        $image = $this->updateImage('images/galleries/', $table->image, $request->file('image'));
+        $table->update(['image' => $image,'title' =>  $validated['title']]);
+        return redirect('/galleries')->with('success', 'Gallery updated successfully!!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Gallery $gallery)
+    public function destroy(string $id)
     {
-        $this->destroyImage('images/galleries/',$gallery->image);
+        $id = Crypt::decryptString($id);
+        $gallery = Gallery::find($id);
+        $this->destroyImage('images/galleries/', $gallery->image);
         $gallery->delete();
-        return redirect('/galleries')->with('success','Gallery deleted successfully!!');
+        return redirect('/galleries')->with('success', 'Gallery deleted successfully!!');
     }
 }

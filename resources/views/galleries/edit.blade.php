@@ -1,30 +1,32 @@
 @extends('layout.app')
 @section('content')
+    <x-breadcrumb></x-breadcrumb>
     <div class="col-lg-12 d-flex align-items-stretch">
 
         <div class="card w-100">
-            <form method="post" enctype="multipart/form-data" action="/galleries/{{ $gallery->id }}">
+            <form method="post" enctype="multipart/form-data" action="/galleries/{{ Crypt::encryptString($gallery->id) }}">
                 @method('put')
                 @csrf
                 <div class="card-body border-top">
                     <div class="row justify-content-between">
                         <div class="col-6">
+
                             <div class="mb-3">
-                                <label for="title" class="control-label col-form-label">Title</label>
-                                <input type="text" class="form-control @error('title') is-invalid @enderror"
-                                    id="title" placeholder="Please enter title..." name="title"
-                                    value="{{ $gallery->title }}" Required />
-                                @error('title')
+                                <label for="image" class="control-label col-form-label">Image</label>
+                                <input type="file" class="form-control @error('image') is-invalid @enderror"
+                                    id="image" name="image" />
+                                @error('image')
                                     <div class="invalid-feedback">
                                         <span class="text-danger">{{ $message }}</span>
                                     </div>
                                 @enderror
                             </div>
                             <div class="mb-3">
-                                <label for="image" class="control-label col-form-label">Image</label>
-                                <input type="file" class="form-control @error('image') is-invalid @enderror"
-                                    id="image" name="image" />
-                                @error('image')
+                                <label for="title" class="control-label col-form-label">Title</label>
+                                <input type="text" class="form-control @error('title') is-invalid @enderror"
+                                    id="title" placeholder="Please enter title..." name="title"
+                                    value="{{ $gallery->title }}" required />
+                                @error('title')
                                     <div class="invalid-feedback">
                                         <span class="text-danger">{{ $message }}</span>
                                     </div>
@@ -41,10 +43,10 @@
                     <div class="action-form">
                         <div class="text-end">
                             <button type="submit" class="btn btn-info px-4 waves-effect waves-light">
-                                Edit
+                                <i class="ti ti-circle-check"></i> Update
                             </button>
                             <a href="/galleries" class="btn btn-dark px-4 waves-effect waves-light">
-                                Cancel
+                                <i class="ti ti-xbox-x"></i> Cancel
                             </a>
                         </div>
                     </div>

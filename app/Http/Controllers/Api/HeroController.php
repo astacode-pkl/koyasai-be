@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use Exception;
 use App\Models\Hero;
-class heroController extends Controller
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
+class HeroController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,7 +25,7 @@ class heroController extends Controller
                 'status' => 200,
                 'hero' => $hero
             ]);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return response()->json([
                 'status' => 500,
                 'message' => 'Server Error',
